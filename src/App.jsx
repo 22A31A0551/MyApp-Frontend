@@ -1,116 +1,110 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import Login from "./Login";
-import { useEffect } from "react";
 import LoanEntry from "./LoanEntry";
+import LoanRetrieve from "./LoanRetrieve";
+import Login from "./Login";
 
 function App() {
-  
-   const [showLogin, setShowLogin] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-  return localStorage.getItem("isLoggedIn") === "true";
-  
-});
-const [page, setPage] = useState("home");
+  const [page, setPage] = useState("home");
 
-
-
-useEffect(() => {
-  localStorage.setItem("isLoggedIn", isLoggedIn);
-}, [isLoggedIn]);
+  // ✅ LOGIN STATE
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <div style={{ backgroundColor: "white", minHeight: "100vh" }}>
-      <Navbar setShowLogin={setShowLogin} isLoggedIn={isLoggedIn}
-                 setIsLoggedIn={setIsLoggedIn}   />
-                 <div
-  style={{
-    paddingTop: "80px",
-    textAlign: "center",
-    color: "white",
-  }}
->
-  {page === "home" && (
+    <div>
 
-  <div
-    style={{
-      marginTop: "40px",
-      display: "flex",
-      justifyContent: "center",
-      gap: "40px",
-    }}
-  >
+      {/* TOP NAVBAR */}
+      <Navbar 
+        setShowLogin={setShowLogin}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
-    
-    {/* Loan Entry */}
-    <div
-      style={cardStyle}
-      onMouseOver={(e) =>
-        (e.currentTarget.style.transform = "scale(1.05)")
-      }
-      onMouseOut={(e) =>
-        (e.currentTarget.style.transform = "scale(1)")
-      }
-      onClick={() => setPage("entry")}
-    >
-      ➕ Loan Entry
-    </div>
+      {/* BELOW NAVBAR */}
+      <div style={{ display: "flex", marginTop: "60px" }}>
 
-    {/* Loan Retrieve */}
-    <div
-      style={cardStyle}
-      onMouseOver={(e) =>
-        (e.currentTarget.style.transform = "scale(1.05)")
-      }
-      onMouseOut={(e) =>
-        (e.currentTarget.style.transform = "scale(1)")
-      }
-      onClick={() => alert("Loan Retrieve Page")}
-    >
-      🔍 Loan Retrieve
-    </div>
-    
-    
-  </div>
-  )}
-{page === "entry" && <LoanEntry />}
-    
-  
-</div>
+        {/* SIDEBAR */}
+        <div style={sidebar}>
+          <h2>Dashboard</h2>
 
-      
-       {/* 🔐 Login Popup */}
+          {/* HOME */}
+          <p style={menuItem} onClick={() => setPage("home")}>
+            🏠 Home
+          </p>
+
+          {/* LOAN ENTRY */}
+          <p
+            style={menuItem}
+            onClick={() => {
+              if (!isLoggedIn) {
+                setShowLogin(true); // 🔥 better UX than alert
+                return;
+              }
+              setPage("entry");
+            }}
+          >
+            ➕ Loan Entry
+          </p>
+
+          {/* LOAN RETRIEVE */}
+          <p
+            style={menuItem}
+            onClick={() => {
+              if (!isLoggedIn) {
+                setShowLogin(true); // 🔥 open login popup
+                return;
+              }
+              setPage("retrieve");
+            }}
+          >
+            🔍 Loan Retrieve
+          </p>
+        </div>
+
+        {/* CONTENT */}
+        <div style={content}>
+          {page === "home" && <h2>Welcome</h2>}
+
+          {page === "entry" && isLoggedIn && <LoanEntry />}
+          {page === "retrieve" && isLoggedIn && <LoanRetrieve />}
+        </div>
+
+      </div>
+
+      {/* ✅ LOGIN POPUP */}
       {showLogin && (
-        <Login
+        <Login 
           setShowLogin={setShowLogin}
           setIsLoggedIn={setIsLoggedIn}
         />
       )}
 
-      
     </div>
-
-    
   );
-
-  
 }
-/* ✅ ADD THIS AT BOTTOM */
-const cardStyle = {
-  width: "260px",
-  height: "140px",
-  backgroundColor: "white",
-  borderRadius: "12px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  fontSize: "18px",
-  fontWeight: "bold",
-  cursor: "pointer",
-  boxShadow: "0 4px 10px rgba(0,0,0,0.3)",
-  transition: "0.3s",
-  color:"black",
+
+/* Styles */
+
+const sidebar = {
+  width: "200px",
+  height: "calc(100vh - 60px)",
+  backgroundColor: "#1e293b",
+  color: "white",
+  padding: "20px",
 };
 
+const menuItem = {
+  marginTop: "15px",
+  cursor: "pointer",
+  padding: "8px",
+  borderRadius: "6px",
+};
+
+const content = {
+  flex: 1,
+  padding: "20px",
+  backgroundColor: "#f5f5f5",
+};
 
 export default App;

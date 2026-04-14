@@ -86,8 +86,8 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn }) {
           gap: "15px",
         }}
       >
-        {/* Dashboard */}
-        <button style={btnStyle}>Dashboard</button>
+        
+      
 
         {/* Login */}
         <button
