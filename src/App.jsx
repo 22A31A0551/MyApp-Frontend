@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
-import Login from "./Login";
+
 import LoanEntry from "./LoanEntry";
 import LoanRetrieve from "./LoanRetrieve";
 import Login from "./Login";
@@ -79,7 +79,7 @@ function App() {
               {/* Loan Retrieve Card */}
               <div 
                 className="glass-card"
-                onClick={() => alert("Search functionality coming soon!")}
+                onClick={() => setPage("retrieve")}
                 style={{
                   padding: "40px",
                   textAlign: "center",
@@ -174,6 +174,31 @@ function App() {
               Back to Dashboard
             </button>
             <LoanEntry />
+          </div>
+        )}
+
+        {page === "retrieve" && (
+          <div className="fade-in">
+             <button 
+              onClick={() => setPage("home")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                background: "transparent",
+                border: "none",
+                color: "var(--text-muted)",
+                marginBottom: "20px",
+                padding: "10px",
+                marginLeft: "auto",
+                marginRight: "auto",
+                maxWidth: "600px"
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Back to Dashboard
+            </button>
+            <LoanRetrieve />
           </div>
         )}
       </main>
