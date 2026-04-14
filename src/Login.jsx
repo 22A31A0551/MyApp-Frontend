@@ -7,7 +7,7 @@ function Login({ setShowLogin, setIsLoggedIn }) {
   const handleLogin = () => {
     if (email === "admin@gmail.com" && password === "1234") {
       setIsLoggedIn(true);
-      setShowLogin(false); // 👈 close popup
+      setShowLogin(false);
     } else {
       alert("Invalid credentials ❌");
     }
@@ -15,51 +15,96 @@ function Login({ setShowLogin, setIsLoggedIn }) {
 
   return (
     <div
+      className="fade-in"
       style={{
         position: "fixed",
         top: 0,
         left: 0,
         width: "100%",
         height: "100vh",
-        backgroundColor: "white", // overlay
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backdropFilter: "blur(8px)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: 2000,
       }}
     >
       <div
+        className="glass"
         style={{
-          backgroundColor: "white",
-          padding: "30px",
-          borderRadius: "12px",
-          width: "300px",
-          color: "black",
-          border:"2px solid black"
+          padding: "40px",
+          width: "380px",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+          textAlign: "center",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
-        <h2>Login</h2>
+        <div style={{ marginBottom: "30px" }}>
+          <div style={{
+            background: "linear-gradient(45deg, var(--primary), var(--secondary))",
+            width: "50px",
+            height: "50px",
+            borderRadius: "14px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "24px",
+            fontWeight: "bold",
+            margin: "0 auto 15px"
+          }}>S</div>
+          <h2 style={{ fontSize: "24px", fontWeight: "700" }}>Welcome Back</h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "5px" }}>Login to your admin account</p>
+        </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          style={inputStyle}
-        />
+        <div style={{ textAlign: "left", marginBottom: "20px" }}>
+          <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Email Address</label>
+          <input
+            type="email"
+            placeholder="admin@gmail.com"
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ width: "100%", marginBottom: "15px" }}
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-          style={inputStyle}
-        />
+          <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Password</label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ width: "100%" }}
+          />
+        </div>
 
-        <button onClick={handleLogin} style={buttonStyle}>
-          Login
+        <button 
+          onClick={handleLogin} 
+          style={{ 
+            width: "100%", 
+            padding: "14px", 
+            backgroundColor: "var(--primary)", 
+            color: "white", 
+            border: "none", 
+            borderRadius: "10px", 
+            fontSize: "16px", 
+            fontWeight: "600",
+            marginBottom: "15px",
+            boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.3)"
+          }}
+          onMouseOver={(e) => e.target.style.backgroundColor = "var(--primary-hover)"}
+          onMouseOut={(e) => e.target.style.backgroundColor = "var(--primary)"}
+        >
+          Sign In
         </button>
 
         <button
           onClick={() => setShowLogin(false)}
-          style={{ marginTop: "10px", width: "100%" }}
+          style={{ 
+            width: "100%", 
+            background: "transparent", 
+            border: "none", 
+            color: "var(--text-muted)",
+            fontSize: "14px",
+            padding: "8px"
+          }}
         >
           Cancel
         </button>
@@ -67,23 +112,5 @@ function Login({ setShowLogin, setIsLoggedIn }) {
     </div>
   );
 }
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  margin: "10px 0",
-  borderRadius: "6px",
-  border: "1px solid black",
-};
-
-const buttonStyle = {
-  width: "100%",
-  padding: "10px",
-  backgroundColor: "#8E44AD",
-  color: "white",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer",
-};
 
 export default Login;
