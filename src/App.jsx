@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Login from "./Login";
 import LoanEntry from "./LoanEntry";
+import LoanRetrieve from "./LoanRetrieve";
+import Login from "./Login";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -178,7 +180,7 @@ function App() {
 
       {/* 🔐 Login Popup */}
       {showLogin && (
-        <Login
+        <Login 
           setShowLogin={setShowLogin}
           setIsLoggedIn={setIsLoggedIn}
         />
