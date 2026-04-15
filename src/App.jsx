@@ -7,9 +7,13 @@ import RepaymentTracker from "./RepaymentTracker";
 import GoldVault from "./GoldVault";
 import ReportsExport from "./ReportsExport";
 import Footer from "./Footer";
+import Login from "./Login";
+import LoanRetrieve from "./LoanRetrieve";
 
 function App() {
   const [page, setPage] = useState("dashboard");
+  const [showLogin, setShowLogin] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", position: "relative" }}>
@@ -22,9 +26,18 @@ function App() {
         {page === "repayment_tracker" && <RepaymentTracker setPage={setPage} />}
         {page === "gold_vault" && <GoldVault setPage={setPage} />}
         {page === "reports" && <ReportsExport setPage={setPage} />}
+        {page === "loan_retrieve" && <LoanRetrieve setPage={setPage} />}
       </main>
 
       <Footer />
+
+      {/* 🔐 Login Popup */}
+      {showLogin && (
+        <Login
+          setShowLogin={setShowLogin}
+          setIsLoggedIn={setIsLoggedIn}
+        />
+      )}
     </div>
   );
 }
