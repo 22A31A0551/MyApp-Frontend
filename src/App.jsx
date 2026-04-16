@@ -35,11 +35,10 @@ function App() {
             <section style={{ textAlign: "center", marginBottom: "60px" }}>
               <h1 style={{ 
                 fontSize: "48px", 
-                fontWeight: "700", 
+                fontWeight: "800", 
                 marginBottom: "16px",
-                background: "linear-gradient(to right, #fff, var(--text-muted))",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
+                color: "#111827",
+                letterSpacing: "-0.5px"
               }}>
                 Financial Management <br/> Made Effortless
               </h1>
