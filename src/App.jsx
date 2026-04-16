@@ -3,6 +3,9 @@ import Navbar from "./Navbar";
 
 import LoanEntry from "./LoanEntry";
 import LoanRetrieve from "./LoanRetrieve";
+import LoanRepayment from "./LoanRepayment";
+import LoanManage from "./LoanManage";
+import ClosedLoans from "./ClosedLoans";
 import Login from "./Login";
 
 function App() {
@@ -100,27 +103,75 @@ function App() {
                 </div>
               </div>
 
-              {/* Analytics Card (Placeholder) */}
+              {/* Loan Repayment Card */}
               <div 
                 className="glass-card"
+                onClick={() => setPage("repayment")}
                 style={{
                   padding: "40px",
                   textAlign: "center",
-                  cursor: "default",
+                  cursor: "pointer",
                   borderRadius: "24px",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  gap: "20px",
-                  opacity: 0.7
+                  gap: "20px"
                 }}
               >
-                <div style={iconContainerStyle("#a855f7")}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <div style={iconContainerStyle("#10b981")}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                 </div>
                 <div>
-                  <h3 style={{ fontSize: "22px", marginBottom: "8px" }}>Analytics</h3>
-                  <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>Detailed business insights and reporting tools.</p>
+                  <h3 style={{ fontSize: "22px", marginBottom: "8px" }}>Loan Repayment</h3>
+                  <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>Process customer payments and clear loans.</p>
+                </div>
+              </div>
+
+              {/* Loan Manage Card */}
+              <div 
+                className="glass-card"
+                onClick={() => setPage("manage")}
+                style={{
+                  padding: "40px",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  borderRadius: "24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "20px"
+                }}
+              >
+                <div style={iconContainerStyle("#f59e0b")}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: "22px", marginBottom: "8px" }}>Edit / Delete</h3>
+                  <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>Modify existing records or delete canceled loans.</p>
+                </div>
+              </div>
+
+              {/* Closed Loans Card */}
+              <div 
+                className="glass-card"
+                onClick={() => setPage("closed")}
+                style={{
+                  padding: "40px",
+                  textAlign: "center",
+                  cursor: "pointer",
+                  borderRadius: "24px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "20px"
+                }}
+              >
+                <div style={iconContainerStyle("#8b5cf6")}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+                <div>
+                  <h3 style={{ fontSize: "22px", marginBottom: "8px" }}>Closed Loans</h3>
+                  <p style={{ color: "var(--text-muted)", fontSize: "14px" }}>View history of successfully paid and closed accounts.</p>
                 </div>
               </div>
             </div>
@@ -199,6 +250,51 @@ function App() {
               Back to Dashboard
             </button>
             <LoanRetrieve />
+          </div>
+        )}
+
+        {page === "repayment" && (
+          <div className="fade-in">
+             <button 
+              onClick={() => setPage("home")}
+              style={{
+                display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Back to Dashboard
+            </button>
+            <LoanRepayment />
+          </div>
+        )}
+
+        {page === "manage" && (
+          <div className="fade-in">
+             <button 
+              onClick={() => setPage("home")}
+              style={{
+                display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Back to Dashboard
+            </button>
+            <LoanManage />
+          </div>
+        )}
+
+        {page === "closed" && (
+          <div className="fade-in">
+             <button 
+              onClick={() => setPage("home")}
+              style={{
+                display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+              Back to Dashboard
+            </button>
+            <ClosedLoans />
           </div>
         )}
       </main>
