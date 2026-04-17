@@ -1,7 +1,7 @@
 import profileicon from "./assets/profileicon.webp";
 import { useState, useEffect, useRef } from "react";
 
-function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn }) {
+function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
   const [showMenu, setShowMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -90,14 +90,15 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn }) {
           fontSize: "18px"
         }}>S</div>
         <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "0.5px" }}>
-          Hi, Admin <span style={{opacity: 0.8}}>👋</span>
+          Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"} <span style={{opacity: 0.8}}>👋</span>
         </span>
       </div>
 
       {/* CENTER: Search */}
       <div style={{ flex: 1, display: "flex", justifyContent: "center", maxWidth: "400px" }}>
-        <div ref={searchRef} style={{ position: "relative", width: "100%" }}>
-          <input
+        {isLoggedIn && (
+          <div ref={searchRef} style={{ position: "relative", width: "100%" }}>
+            <input
             type="text"
             placeholder="Search active loans..."
             value={searchQuery}
@@ -181,7 +182,8 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn }) {
               )}
             </div>
           )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* RIGHT: Actions */}

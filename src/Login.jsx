@@ -1,15 +1,70 @@
 import { useState } from "react";
 
-function Login({ setShowLogin, setIsLoggedIn }) {
-  const [email, setEmail] = useState("");
+function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
+  const [mode, setMode] = useState("login"); // 'login' | 'register'
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
 
-  const handleLogin = () => {
-    if (email === "admin@gmail.com" && password === "1234") {
-      setIsLoggedIn(true);
-      setShowLogin(false);
-    } else {
-      alert("Invalid credentials ❌");
+  const handleAction = async () => {
+    if (mode === "login") {
+      // Check admin credentials
+      if (identifier === "admin@gmail.com" && password === "1234") {
+        setUserRole("admin");
+        setIsLoggedIn(true);
+        setShowLogin(false);
+      } else {
+        // ✅ FIXED LOGIN API
+        try {
+          const res = await fetch("http://localhost:8080/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone: identifier, password }),
+          });
+
+          const data = await res.json();
+
+          if (data && data.id) {
+            setUserRole("user");
+            setIsLoggedIn(true);
+            setShowLogin(false);
+          } else {
+            alert("Invalid credentials ❌");
+          }
+        } catch (error) {
+          console.error("Login Error:", error);
+          alert("Error connecting to the database.");
+        }
+      }
+    } else if (mode === "register") {
+      if (phone.length < 10) {
+        alert("Please enter a valid phone number");
+        return;
+      }
+      if (password.length < 4) {
+        alert("Password must be at least 4 characters");
+        return;
+      }
+
+      // ✅ FIXED REGISTER API
+      try {
+        const res = await fetch("http://localhost:8080/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone, password }),
+        });
+
+        const message = await res.text();
+
+        alert(message);
+
+        setMode("login");
+        setIdentifier(phone);
+        setPassword("");
+      } catch (error) {
+        console.error("Registration Error:", error);
+        alert("Error connecting to the database.");
+      }
     }
   };
 
@@ -34,13 +89,13 @@ function Login({ setShowLogin, setIsLoggedIn }) {
         className="glass"
         style={{
           padding: "40px",
-          width: "380px",
+          width: "400px",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
           textAlign: "center",
           border: "1px solid rgba(255, 255, 255, 0.1)",
         }}
       >
-        <div style={{ marginBottom: "30px" }}>
+        <div style={{ marginBottom: "25px" }}>
           <div style={{
             background: "linear-gradient(45deg, var(--primary), var(--secondary))",
             width: "50px",
@@ -51,59 +106,101 @@ function Login({ setShowLogin, setIsLoggedIn }) {
             alignItems: "center",
             fontSize: "24px",
             fontWeight: "bold",
-            margin: "0 auto 15px"
+            margin: "0 auto 15px",
+            color: "#fff"
           }}>S</div>
-          <h2 style={{ fontSize: "24px", fontWeight: "700" }}>Welcome Back</h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "5px" }}>Login to your admin account</p>
+          <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#fff" }}>
+            {mode === "login" ? "Welcome Back" : "Create Account"}
+          </h2>
+          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "5px" }}>
+            {mode === "login" ? "Sign in to your account" : "Register as a new user"}
+          </p>
         </div>
 
         <div style={{ textAlign: "left", marginBottom: "20px" }}>
-          <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Email Address</label>
-          <input
-            type="email"
-            placeholder="admin@gmail.com"
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: "100%", marginBottom: "15px" }}
-          />
+          {mode === "login" ? (
+            <>
+              <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <input
+                type="text"
+                placeholder="10-digit mobile number"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                style={{ width: "100%", marginBottom: "15px" }}
+              />
+            </>
+          ) : (
+            <>
+              <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <input
+                type="text"
+                placeholder="10-digit mobile number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                style={{ width: "100%", marginBottom: "15px" }}
+              />
+            </>
+          )}
 
           <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Password</label>
           <input
             type="password"
             placeholder="••••••••"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={{ width: "100%" }}
           />
+
+          <div style={{ marginTop: "15px", textAlign: "center", fontSize: "13px" }}>
+            {mode === "login" ? (
+              <span style={{ color: "var(--text-muted)" }}>
+                Don't have an account?{" "}
+                <span onClick={() => { setMode("register"); setIdentifier(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "600" }}>
+                  Register
+                </span>
+              </span>
+            ) : (
+              <span style={{ color: "var(--text-muted)" }}>
+                Already have an account?{" "}
+                <span onClick={() => { setMode("login"); setPhone(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "600" }}>
+                  Login
+                </span>
+              </span>
+            )}
+          </div>
         </div>
 
-        <button 
-          onClick={handleLogin} 
-          style={{ 
-            width: "100%", 
-            padding: "14px", 
-            backgroundColor: "var(--primary)", 
-            color: "white", 
-            border: "none", 
-            borderRadius: "10px", 
-            fontSize: "16px", 
+        <button
+          onClick={handleAction}
+          style={{
+            width: "100%",
+            padding: "14px",
+            backgroundColor: "var(--primary)",
+            color: "white",
+            border: "none",
+            borderRadius: "10px",
+            fontSize: "16px",
             fontWeight: "600",
             marginBottom: "15px",
+            cursor: "pointer",
             boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.3)"
           }}
           onMouseOver={(e) => e.target.style.backgroundColor = "var(--primary-hover)"}
           onMouseOut={(e) => e.target.style.backgroundColor = "var(--primary)"}
         >
-          Sign In
+          {mode === "register" ? "Register" : "Sign In"}
         </button>
 
         <button
           onClick={() => setShowLogin(false)}
-          style={{ 
-            width: "100%", 
-            background: "transparent", 
-            border: "none", 
+          style={{
+            width: "100%",
+            background: "transparent",
+            border: "none",
             color: "var(--text-muted)",
             fontSize: "14px",
-            padding: "8px"
+            padding: "8px",
+            cursor: "pointer"
           }}
         >
           Cancel

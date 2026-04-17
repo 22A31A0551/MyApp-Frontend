@@ -227,6 +227,7 @@ const labelStyle = {
   fontSize: "13px",
   color: "var(--text-muted)",
   marginLeft: "4px"
+
 };
 
 export default LoanEntry;

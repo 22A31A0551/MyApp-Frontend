@@ -51,39 +51,48 @@ function LoanRepayment() {
     };
   };
 
-  const handleRepay = async () => {
-    if (!selectedLoan) return;
-    try {
-      const todayDate = new Date().toISOString().split('T')[0];
-      
-      // Update the loan on the server as "Closed"
-      const response = await fetch(`http://localhost:8080/api/loans/${selectedLoan.id}`, {
+ const handleRepay = async () => {
+  if (!selectedLoan) return;
+
+  try {
+    const todayDate = new Date().toISOString().split("T")[0];
+
+    // ✅ FIXED ENDPOINT
+    const response = await fetch(
+      `http://localhost:8080/api/loans/close/${selectedLoan.id}`,
+      {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...selectedLoan,
-          status: "Closed",
-          repaymentDate: todayDate,
-          amountPaid: repaymentAmount
-        }),
-      });
 
-      if (response.ok) {
-        alert(`✅ Loan Closed Successfully!\n\nCustomer: ${selectedLoan.name}\nDate: ${todayDate}\nAmount Paid: ₹${repaymentAmount}`);
-        setSelectedLoan(null);
-        setLoans([]);
-        setName("");
-        setRepaymentAmount("");
-      } else {
-        alert("❌ Error saving repayment data to the server.");
+        // ✅ SEND ONLY REQUIRED DATA
+        body: JSON.stringify({
+          repaymentDate: todayDate,
+          amountPaid: repaymentAmount,
+        }),
       }
-    } catch (error) {
-      console.error(error);
-      alert("❌ Server error during repayment process.");
+    );
+
+    if (response.ok) {
+      alert(
+        `✅ Loan Closed Successfully!\n\nCustomer: ${selectedLoan.name}\nDate: ${todayDate}\nAmount Paid: ₹${repaymentAmount}`
+      );
+
+      setSelectedLoan(null);
+      setLoans([]);
+      setName("");
+      setRepaymentAmount("");
+    } else {
+      const text = await response.text();
+      console.error("Backend error:", text);
+      alert("❌ Error saving repayment data to the server.");
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert("❌ Server error during repayment process.");
+  }
+};
 
   const totals = selectedLoan ? calculateTotals(selectedLoan) : null;
 
