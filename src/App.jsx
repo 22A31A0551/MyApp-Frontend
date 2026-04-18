@@ -85,11 +85,32 @@ function App() {
         setPage={setPage}
       />
 
-      <main style={{ paddingTop: "120px", paddingBottom: "40px", paddingLeft: "20px", paddingRight: "20px" }}>
+      <main style={{ 
+        paddingTop: "120px", 
+        paddingBottom: "80px", 
+        flex: 1,
+        background: "var(--bg-color)" 
+      }}>
+        {/* Decorative Background Elements */}
+        {isLoggedIn && (
+          <>
+            <div style={{
+              position: "absolute",
+              top: "120px",
+              right: "0",
+              width: "500px",
+              height: "500px",
+              background: "radial-gradient(circle, rgba(79, 70, 229, 0.03) 0%, transparent 70%)",
+              pointerEvents: "none",
+              zIndex: 0
+            }}></div>
+          </>
+        )}
+
         {!isLoggedIn ? (
           <Landing />
         ) : (
-          <>
+          <div className="fade-in" style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1, padding: "0 20px" }}>
             {page === "home" && (
               <div className="fade-in" style={{ maxWidth: "1200px", margin: "0 auto" }}>
                 
@@ -99,8 +120,9 @@ function App() {
                     fontSize: "48px", 
                     fontWeight: "800", 
                     marginBottom: "16px",
-                    color: "#111827",
-                    letterSpacing: "-0.5px"
+                    color: "var(--text-main)",
+                    letterSpacing: "-2px",
+                    lineHeight: 1.1
                   }}>
                     {userRole === "admin" ? "Srinu Bankers" : "User Portal"}
                   </h1>
@@ -114,12 +136,10 @@ function App() {
                 {/* Conditional Display for Admin vs User */}
                 {userRole === "admin" ? (
                   <>
-                    {/* Quick Actions Grid */}
                     <div style={{
                       display: "grid",
                       gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                      gap: "25px",
-                      padding: "0 20px"
+                      gap: "30px"
                     }}>
                       {/* Loan Entry Card */}
                       <div 
@@ -167,7 +187,8 @@ function App() {
                           <h3 style={{ fontSize: "22px", marginBottom: "8px", color: "#000" }}>Loan Retrieval</h3>
                           <p style={{ color: "#000", fontSize: "14px", fontWeight: "500" }}>Search and manage existing loan records instantly.</p>
                         </div>
-                      </div>
+                      ))}
+                    </div>
 
                       {/* Loan Repayment Card */}
                       <div 
@@ -191,6 +212,7 @@ function App() {
                           <h3 style={{ fontSize: "22px", marginBottom: "8px", color: "#000" }}>Loan Repayment</h3>
                           <p style={{ color: "#000", fontSize: "14px", fontWeight: "500" }}>Process customer payments and clear loans.</p>
                         </div>
+                        <button className="btn-primary" style={{ padding: "12px 24px", fontSize: "14px" }}>Generate Monthly Audit</button>
                       </div>
 
                       {/* Loan Manage Card */}
@@ -335,95 +357,35 @@ function App() {
 
             {page === "entry" && (
               <div className="fade-in">
-                <button
-                  onClick={() => setPage("home")}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    background: "transparent",
-                    border: "none",
-                    color: "var(--text-muted)",
-                    marginBottom: "20px",
-                    padding: "10px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    maxWidth: "600px"
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                  Back to Dashboard
-                </button>
+                <button onClick={() => setPage("home")} style={backButtonStyle}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Control Center</button>
                 <LoanEntry />
               </div>
             )}
 
             {page === "retrieve" && (
               <div className="fade-in">
-                <button
-                  onClick={() => setPage("home")}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "8px",
-                    background: "transparent",
-                    border: "none",
-                    color: "var(--text-muted)",
-                    marginBottom: "20px",
-                    padding: "10px",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    maxWidth: "600px"
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                  Back to Dashboard
-                </button>
+                <button onClick={() => setPage("home")} style={backButtonStyle}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Control Center</button>
                 <LoanRetrieve />
               </div>
             )}
 
             {page === "repayment" && (
               <div className="fade-in">
-                <button
-                  onClick={() => setPage("home")}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                  Back to Dashboard
-                </button>
+                <button onClick={() => setPage("home")} style={backButtonStyle}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Control Center</button>
                 <LoanRepayment />
               </div>
             )}
 
             {page === "manage" && (
               <div className="fade-in">
-                <button
-                  onClick={() => setPage("home")}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                  Back to Dashboard
-                </button>
+                <button onClick={() => setPage("home")} style={backButtonStyle}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Control Center</button>
                 <LoanManage />
               </div>
             )}
 
             {page === "closed" && (
               <div className="fade-in">
-                <button
-                  onClick={() => setPage("home")}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "8px", background: "transparent", border: "none", color: "var(--text-muted)", marginBottom: "20px", padding: "10px", marginLeft: "auto", marginRight: "auto", maxWidth: "600px"
-                  }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                  Back to Dashboard
-                </button>
+                <button onClick={() => setPage("home")} style={backButtonStyle}><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>Back to Control Center</button>
                 <ClosedLoans />
               </div>
             )}
@@ -458,7 +420,7 @@ function App() {
         )}
       </main>
 
-      {/* 🔐 Login Popup */}
+
       {showLogin && (
         <Login
           setShowLogin={setShowLogin}
@@ -472,16 +434,10 @@ function App() {
   );
 }
 
-const iconContainerStyle = (color) => ({
-  width: "60px",
-  height: "60px",
-  borderRadius: "18px",
-  background: `${color}20`,
-  color: color,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  boxShadow: `0 8px 16px -4px ${color}40`,
-});
+const backButtonStyle = {
+  display: "flex", alignItems: "center", gap: "10px", background: "var(--surface-lowest)", border: "1px solid var(--surface-high)", color: "var(--text-muted)",
+  marginBottom: "30px", padding: "10px 20px", borderRadius: "12px", cursor: "pointer", fontSize: "13px", fontWeight: "700", marginLeft: "auto", marginRight: "auto",
+  boxShadow: "var(--shadow-sm)", transition: "var(--transition)"
+};
 
 export default App;

@@ -107,18 +107,20 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole, setPage }) 
       borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
       boxSizing: "border-box"
     }}>
-      {/* LEFT: Logo/Admin */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      {/* LEFT: Logo/Brand */}
+      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <div style={{
-          background: "linear-gradient(45deg, var(--primary), var(--secondary))",
-          width: "35px",
-          height: "35px",
-          borderRadius: "10px",
+          background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+          width: "42px",
+          height: "42px",
+          borderRadius: "12px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontWeight: "bold",
-          fontSize: "18px"
+          fontWeight: "800",
+          fontSize: "22px",
+          color: "#fff",
+          boxShadow: "0 4px 12px rgba(79, 70, 229, 0.2)"
         }}>S</div>
         <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "0.5px" }}>
           Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"} <span style={{ opacity: 0.8 }}>👋</span>
@@ -228,11 +230,12 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole, setPage }) 
           style={{
             padding: "10px 20px",
             borderRadius: "10px",
-            border: "1px solid rgba(255,255,255,0.2)",
             background: isLoggedIn ? "rgba(255,255,255,0.1)" : "var(--primary)",
-            color: "white",
+            color: "#fff",
             fontSize: "14px",
             fontWeight: "600",
+            border: isLoggedIn ? "1px solid rgba(255,255,255,0.1)" : "none",
+            transition: "var(--transition)"
           }}
         >
           {isLoggedIn ? "Dashboard" : "Login"}
@@ -376,6 +379,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole, setPage }) 
         )}
       </div>
     </nav>
+
   );
 }
 
@@ -387,7 +391,7 @@ const menuItemStyle = {
   alignItems: "center",
   fontSize: "14px",
   transition: "var(--transition)",
-  color: "var(--text-main)",
+  color: "#f8fafc",
   "&:hover": {
     background: "rgba(255,255,255,0.05)"
   }
