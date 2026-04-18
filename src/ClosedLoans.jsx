@@ -59,10 +59,9 @@ function ClosedLoans() {
               width: "100%",
               padding: "10px 10px 10px 40px",
               borderRadius: "8px",
-              border: "1px solid var(--glass-border)",
+              border: "1px solid #000",
               background: "rgba(255, 255, 255, 0.05)",
-              color: "var(--text-main)",
-              fontSize: "14px",
+              color: "#000",
               outline: "none"
             }}
           />
@@ -117,6 +116,6 @@ function ClosedLoans() {
 }
 
 const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
-const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" };
+const tdStyle = { padding: "16px", color: "#000000", fontSize: "15px", fontWeight: "500" };
 
 export default ClosedLoans;

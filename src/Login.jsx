@@ -92,7 +92,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
           width: "400px",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
           textAlign: "center",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
+          backgroundColor: "#ffffff"
         }}
       >
         <div style={{ marginBottom: "25px" }}>
@@ -109,7 +109,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             margin: "0 auto 15px",
             color: "#fff"
           }}>S</div>
-          <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#fff" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "700", color: "var(--text-main)" }}>
             {mode === "login" ? "Welcome Back" : "Create Account"}
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "5px" }}>
@@ -120,7 +120,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
         <div style={{ textAlign: "left", marginBottom: "20px" }}>
           {mode === "login" ? (
             <>
-              <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Phone Number</label>
               <input
                 type="text"
                 placeholder="10-digit mobile number"
@@ -131,7 +131,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             </>
           ) : (
             <>
-              <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Phone Number</label>
               <input
                 type="text"
                 placeholder="10-digit mobile number"
@@ -142,7 +142,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             </>
           )}
 
-          <label style={{ fontSize: "12px", color: "var(--text-muted)", marginBottom: "8px", display: "block", marginLeft: "4px" }}>Password</label>
+          <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Password</label>
           <input
             type="password"
             placeholder="••••••••"

@@ -121,7 +121,7 @@ function LoanRepayment() {
               onKeyDown={(e) => { if (e.key === "Enter") searchLoans(); }}
               style={{
                 flex: "1", maxWidth: "400px", padding: "12px 16px", borderRadius: "10px",
-                background: "var(--surface-color)", border: "1px solid var(--glass-border)", color: "var(--text-main)", outline: "none"
+                background: "var(--surface-color)", border: "1px solid #000", color: "#000", outline: "none"
               }}
             />
             <button onClick={searchLoans} style={btnStyle("#6366f1")}>Search</button>
@@ -206,9 +206,9 @@ function LoanRepayment() {
               value={repaymentAmount}
               onChange={(e) => setRepaymentAmount(e.target.value)}
               placeholder="Enter amount being paid"
-              style={{
+               style={{
                 width: "100%", padding: "16px", borderRadius: "10px", fontSize: "18px", fontWeight: "600",
-                background: "var(--surface-color)", border: "1px solid var(--primary)", color: "var(--text-main)", outline: "none",
+                background: "var(--surface-color)", border: "1px solid #000", color: "#000", outline: "none",
                 marginBottom: "20px"
               }}
             />
@@ -234,8 +234,8 @@ function LoanRepayment() {
 
 const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
 const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" };
-const labelStyle = { color: "var(--text-muted)", fontSize: "14px" };
-const valStyle = { color: "var(--text-main)", fontWeight: "500", fontSize: "15px" };
+const labelStyle = { color: "#000", fontSize: "14px", fontWeight: "600" };
+const valStyle = { color: "#000", fontWeight: "500", fontSize: "15px" };
 
 const btnStyle = (bg, color="white", border="none") => ({
   padding: "12px 25px",
