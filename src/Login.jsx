@@ -77,8 +77,8 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
         left: 0,
         width: "100%",
         height: "100vh",
-        backgroundColor: "rgba(255, 255, 255, 0.4)",
-        backdropFilter: "blur(12px)",
+        backgroundColor: "rgba(0, 0, 0, 0.6)",
+        backdropFilter: "blur(8px)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -86,38 +86,39 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
       }}
     >
       <div
-        className="glass-card"
+        className="glass"
         style={{
-          padding: "50px 40px",
-          width: "440px",
+          padding: "40px",
+          width: "400px",
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
           textAlign: "center",
           backgroundColor: "#ffffff"
         }}
       >
-        <div style={{ marginBottom: "35px" }}>
+        <div style={{ marginBottom: "25px" }}>
           <div style={{
-            background: "linear-gradient(135deg, var(--primary), var(--secondary))",
-            width: "64px",
-            height: "64px",
-            borderRadius: "20px",
+            background: "var(--primary)",
+            width: "50px",
+            height: "50px",
+            borderRadius: "14px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            fontSize: "30px",
+            fontSize: "24px",
             fontWeight: "800",
-            margin: "0 auto 24px",
+            margin: "0 auto 15px",
             color: "#fff",
-            boxShadow: "0 10px 20px rgba(79, 70, 229, 0.2)"
+            border: "1.5px solid #000"
           }}>S</div>
           <h2 style={{ fontSize: "24px", fontWeight: "700", color: "var(--text-main)" }}>
             {mode === "login" ? "Welcome Back" : "Create Account"}
           </h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "8px", fontWeight: "500" }}>
-            {mode === "login" ? "Secure access to your gold loan dashboard" : "Register to start your financial journey"}
+          <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "5px" }}>
+            {mode === "login" ? "Sign in to your account" : "Register as a new user"}
           </p>
         </div>
 
-        <div style={{ textAlign: "left", marginBottom: "30px" }}>
+        <div style={{ textAlign: "left", marginBottom: "20px" }}>
           {mode === "login" ? (
             <>
               <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Phone Number</label>
@@ -126,7 +127,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
                 placeholder="10-digit mobile number"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                style={{ width: "100%", marginBottom: "20px" }}
+                style={{ width: "100%", marginBottom: "15px" }}
               />
             </>
           ) : (
@@ -137,7 +138,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
                 placeholder="10-digit mobile number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                style={{ width: "100%", marginBottom: "20px" }}
+                style={{ width: "100%", marginBottom: "15px" }}
               />
             </>
           )}
@@ -151,18 +152,18 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             style={{ width: "100%" }}
           />
 
-          <div style={{ marginTop: "24px", textAlign: "center", fontSize: "14px" }}>
+          <div style={{ marginTop: "15px", textAlign: "center", fontSize: "13px" }}>
             {mode === "login" ? (
               <span style={{ color: "var(--text-muted)" }}>
                 Don't have an account?{" "}
-                <span onClick={() => { setMode("register"); setIdentifier(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "700" }}>
+                <span onClick={() => { setMode("register"); setIdentifier(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "600" }}>
                   Register
                 </span>
               </span>
             ) : (
               <span style={{ color: "var(--text-muted)" }}>
                 Already have an account?{" "}
-                <span onClick={() => { setMode("login"); setPhone(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "700" }}>
+                <span onClick={() => { setMode("login"); setPhone(""); setPassword(""); }} style={{ color: "var(--primary)", cursor: "pointer", fontWeight: "600" }}>
                   Login
                 </span>
               </span>
@@ -172,15 +173,23 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
 
         <button
           onClick={handleAction}
-          className="btn-primary"
           style={{
             width: "100%",
-            padding: "16px",
+            padding: "14px",
+            backgroundColor: "var(--primary)",
+            color: "white",
+            border: "1.5px solid #000",
+            borderRadius: "10px",
             fontSize: "16px",
+            fontWeight: "700",
             marginBottom: "15px",
+            cursor: "pointer",
+            boxShadow: "0 10px 15px -3px rgba(99, 102, 241, 0.3)"
           }}
+          onMouseOver={(e) => { e.target.style.transform = "scale(1.02)"; }}
+          onMouseOut={(e) => { e.target.style.transform = "scale(1)"; }}
         >
-          {mode === "register" ? "Create Secure Account" : "Access Portal"}
+          {mode === "register" ? "Register" : "Sign In"}
         </button>
 
         <button
@@ -192,15 +201,13 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             color: "var(--text-muted)",
             fontSize: "14px",
             padding: "8px",
-            cursor: "pointer",
-            fontWeight: "600"
+            cursor: "pointer"
           }}
         >
           Cancel
         </button>
       </div>
     </div>
-
   );
 }
 

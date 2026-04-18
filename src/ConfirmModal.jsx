@@ -1,6 +1,6 @@
 import React from "react";
 
-function ConfirmModal({ isOpen, title, message, onConfirm, onCancel }) {
+function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, type }) {
   if (!isOpen) return null;
 
   return (
