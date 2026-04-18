@@ -33,7 +33,7 @@ function GoldVault({ setPage }) {
             </tr>
           </thead>
           <tbody>
-            {DUMMY_VAULT.map((item, i) => (
+            {DUMMY_VAULT.map((item) => (
               <tr key={item.id} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
                 <td style={{ padding: "15px 10px", color: "#eab308", fontWeight: "600" }}>{item.id}</td>
                 <td style={{ padding: "15px 10px", color: "var(--text-main)" }}>{item.loanId}</td>
