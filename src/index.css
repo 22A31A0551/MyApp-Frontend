@@ -10,8 +10,8 @@
   --primary-hover: #4338ca;
   --secondary: #9333ea;
   --accent: #0ea5e9;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
+   --text-main: #000000;
+  --text-muted: #1e293b;
   --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -71,11 +71,13 @@ body {
 
 /* Modern Inputs */
 input {
-  background: var(--surface-color);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
   padding: 12px 16px;
   border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
   transition: var(--transition);
   outline: none;
 }

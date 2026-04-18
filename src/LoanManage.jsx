@@ -86,7 +86,7 @@ function LoanManage() {
           onChange={(e) => setName(e.target.value)}
           style={{
             flex: "1", maxWidth: "400px", padding: "12px 16px", borderRadius: "10px",
-            background: "var(--surface-color)", border: "1px solid var(--glass-border)", color: "var(--text-main)", outline: "none"
+            background: "#ffffff", border: "1px solid #000000", color: "#000000", outline: "none"
           }}
           onKeyDown={(e) => { if (e.key === "Enter") search(); }}
         />
@@ -128,7 +128,7 @@ function LoanManage() {
       {editingId && (
         <div style={modalOverlayStyle}>
           <div style={modalStyle}>
-            <h3 style={{ marginTop: 0, marginBottom: "20px", fontSize: "20px", fontWeight: "600" }}>Edit Loan Record</h3>
+            <h3 style={{ marginTop: 0, marginBottom: "20px", fontSize: "20px", fontWeight: "600", color: "#000" }}>Edit Loan Record</h3>
             
             <div style={formGroupStyle}>
               <label style={labelStyle}>Name</label>
@@ -162,14 +162,14 @@ function LoanManage() {
 }
 
 const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
-const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" };
+const tdStyle = { padding: "16px", color: "#000000", fontSize: "15px", fontWeight: "500" };
 const btnStyle = (bg) => ({ padding: "12px 30px", background: bg, color: "white", border: "none", borderRadius: "10px", fontWeight: "600", cursor: "pointer" });
 const actionBtnStyle = { padding: "6px 12px", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontSize: "13px" };
 
 const modalOverlayStyle = { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000 };
-const modalStyle = { background: "var(--surface-color)", padding: "30px", borderRadius: "16px", border: "1px solid var(--glass-border)", width: "100%", maxWidth: "400px", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" };
+const modalStyle = { background: "#ffffff", padding: "30px", borderRadius: "16px", border: "1px solid var(--glass-border)", width: "100%", maxWidth: "400px", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" };
 const formGroupStyle = { display: "flex", flexDirection: "column", gap: "6px", marginBottom: "15px" };
-const labelStyle = { fontSize: "13px", color: "var(--text-muted)", fontWeight: "600" };
-const modalInputStyle = { width: "100%", padding: "10px 14px", borderRadius: "8px", background: "rgba(0,0,0,0.15)", border: "1px solid var(--glass-border)", color: "var(--text-main)", outline: "none", boxSizing: "border-box", fontSize: "15px", fontFamily: "inherit" };
+const labelStyle = { fontSize: "13px", color: "#000", fontWeight: "600" };
+const modalInputStyle = { width: "100%", padding: "10px 14px", borderRadius: "8px", background: "#f8fafc", border: "1px solid #e2e8f0", color: "#000", outline: "none", boxSizing: "border-box", fontFamily: "inherit" };
 
 export default LoanManage;

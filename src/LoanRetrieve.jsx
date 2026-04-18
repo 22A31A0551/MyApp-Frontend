@@ -48,8 +48,8 @@ function LoanRetrieve() {
             padding: "12px 16px",
             borderRadius: "10px",
             background: "var(--surface-color)",
-            border: "1px solid var(--glass-border)",
-            color: "var(--text-main)",
+            border: "1px solid #000",
+            color: "#000",
             outline: "none"
           }}
           onKeyDown={(e) => {
@@ -137,8 +137,9 @@ const thStyle = {
 
 const tdStyle = {
   padding: "16px",
-  color: "var(--text-muted)",
-  fontSize: "15px"
+  color: "#000000",
+  fontSize: "15px",
+  fontWeight: "500"
 };
 
 export default LoanRetrieve;

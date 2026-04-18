@@ -106,22 +106,22 @@ function LoanEntry() {
         
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Full Name</label>
-          <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe" style={{width: "100%"}} />
+          <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Phone Number</label>
-          <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 00000 00000" style={{width: "100%"}} />
+          <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 00000 00000" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Email Address (Optional)</label>
-          <input name="email" value={form.email} onChange={handleChange} placeholder="john@example.com" style={{width: "100%"}} />
+          <input name="email" value={form.email} onChange={handleChange} placeholder="john@example.com" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Residential Address</label>
-          <input name="address" value={form.address} onChange={handleChange} placeholder="Street, City, State" style={{width: "100%"}} />
+          <input name="address" value={form.address} onChange={handleChange} placeholder="Street, City, State" style={inputStyle} />
         </div>
 
         {/* Loan Details */}
@@ -131,27 +131,27 @@ function LoanEntry() {
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Collateral Item</label>
-          <input name="item" value={form.item} onChange={handleChange} placeholder="Gold Ornament" style={{width: "100%"}} />
+          <input name="item" value={form.item} onChange={handleChange} placeholder="Gold Ornament" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Weight (gm)</label>
-          <input name="weight" value={form.weight} onChange={handleChange} placeholder="0.00" style={{width: "100%"}} />
+          <input name="weight" value={form.weight} onChange={handleChange} placeholder="0.00" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Loan Amount (₹)</label>
-          <input name="amount" value={form.amount} onChange={handleChange} placeholder="50,000" style={{width: "100%"}} />
+          <input name="amount" value={form.amount} onChange={handleChange} placeholder="50,000" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Interest Rate (%)</label>
-          <input name="interest" value={form.interest} onChange={handleChange} placeholder="2.0" style={{width: "100%"}} />
+          <input name="interest" value={form.interest} onChange={handleChange} placeholder="2.0" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Application Date</label>
-          <input type="date" name="date" value={form.date} onChange={handleChange} style={{width: "100%"}} />
+          <input type="date" name="date" value={form.date} onChange={handleChange} style={inputStyle} />
         </div>
       </div>
 
@@ -225,9 +225,19 @@ const inputGroupStyle = {
 
 const labelStyle = {
   fontSize: "13px",
-  color: "var(--text-muted)",
+  color: "#000",
+  fontWeight: "600",
   marginLeft: "4px"
+};
 
+const inputStyle = {
+  width: "100%",
+  padding: "12px 16px",
+  borderRadius: "10px",
+  border: "1px solid #000",
+  background: "var(--surface-color)",
+  color: "#000",
+  outline: "none"
 };
 
 export default LoanEntry;
