@@ -1,51 +1,65 @@
 import React from 'react';
 
-function Footer() {
+const Footer = () => {
   return (
     <footer style={{
-      borderTop: "1px solid var(--glass-border)",
-      background: "rgba(5, 6, 15, 0.4)",
-      backdropFilter: "blur(12px)",
-      WebkitBackdropFilter: "blur(12px)",
-      color: "var(--text-muted)",
-      padding: "25px 20px",
-      marginTop: "auto"
+      marginTop: "auto",
+      padding: "40px 20px",
+      background: "#050505",
+      borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+      textAlign: "center",
+      color: "#ffffff"
     }}>
-      <div style={{ 
-        maxWidth: "1200px", 
-        margin: "0 auto", 
-        display: "flex", 
-        flexWrap: "wrap", 
-        justifyContent: "space-between", 
-        alignItems: "center", 
-        gap: "20px" 
-      }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "20px" }}>
+        <h4 style={{ color: "#ffffff", fontSize: "18px", margin: 0, fontWeight: "600" }}>Market Resources & Predictions</h4>
+        <p style={{ color: "#e2e8f0", fontSize: "14px", margin: 0, maxWidth: "600px", alignSelf: "center" }}>
+          Stay updated with the latest gold market prices, trends, and future predictions from top financial resources.
+        </p>
         
-        {/* Brand Info */}
-        <div style={{ textAlign: "left" }}>
-          <h3 style={{ 
-            color: "var(--text-main)", 
-            fontSize: "16px", 
-            marginBottom: "5px", 
-            fontWeight: "600",
-            letterSpacing: "0.5px"
-          }}>
-            Suvarna Finance
-          </h3>
-          <p style={{ fontSize: "13px", opacity: 0.7 }}>Secure Gold Loan Management System</p>
-        </div>
-
-        {/* Legal & Internal Warning */}
-        <div style={{ fontSize: "13px", textAlign: "right" }}>
-          <p style={{ color: "#eab308", marginBottom: "5px", display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "6px" }}>
-            <span>⚠️</span> Strictly for Authorized Internal Admin Use
-          </p>
-          <p style={{ opacity: 0.6 }}>&copy; {new Date().getFullYear()} Suvarna Finance. All Rights Reserved.</p>
+        <div style={{ 
+          display: "flex", 
+          flexWrap: "wrap", 
+          justifyContent: "center", 
+          gap: "15px",
+          marginTop: "10px"
+        }}>
+          <a href="https://www.kitco.com" target="_blank" rel="noopener noreferrer" className="footer-link" style={linkStyle}>
+            <span style={iconColor("#f59e0b")}>📈</span> Kitco (Market News & Live Charts)
+          </a>
+          <a href="https://goldprice.org" target="_blank" rel="noopener noreferrer" className="footer-link" style={linkStyle}>
+            <span style={iconColor("#10b981")}>💰</span> GoldPrice.org (Live Rates)
+          </a>
+          <a href="https://www.gold.org" target="_blank" rel="noopener noreferrer" className="footer-link" style={linkStyle}>
+            <span style={iconColor("#6366f1")}>🌍</span> World Gold Council (Predictions & Reports)
+          </a>
         </div>
         
+        <div style={{ marginTop: "20px", fontSize: "12px", borderTop: "1px solid rgba(255, 255, 255, 0.05)", paddingTop: "20px" }}>
+          © {new Date().getFullYear()} Gold Loan Management System. All rights reserved.
+        </div>
       </div>
     </footer>
   );
-}
+};
+
+const linkStyle = {
+  display: "flex",
+  alignItems: "center",
+  gap: "8px",
+  textDecoration: "none",
+  color: "#ffffff",
+  background: "rgba(255, 255, 255, 0.08)",
+  padding: "10px 16px",
+  borderRadius: "12px",
+  border: "1px solid rgba(255, 255, 255, 0.15)",
+  transition: "all 0.3s ease",
+  fontWeight: "500",
+  fontSize: "14px"
+};
+
+const iconColor = (color) => ({
+  color: color,
+  fontSize: "16px"
+});
 
 export default Footer;

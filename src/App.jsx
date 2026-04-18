@@ -8,6 +8,7 @@ import LoanManage from "./LoanManage";
 import ClosedLoans from "./ClosedLoans";
 import Login from "./Login";
 import Landing from "./Landing";
+import Footer from "./Footer";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -32,7 +33,7 @@ function App() {
   }, [userRole]);
 
   return (
-    <div style={{ minHeight: "100vh", position: "relative" }}>
+    <div style={{ minHeight: "100vh", position: "relative", display: "flex", flexDirection: "column" }}>
       <Navbar
         setShowLogin={setShowLogin}
         isLoggedIn={isLoggedIn}
@@ -353,6 +354,8 @@ function App() {
           setUserRole={setUserRole}
         />
       )}
+
+      <Footer />
     </div>
   );
 }
