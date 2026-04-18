@@ -83,20 +83,18 @@ function LoanManage() {
         <p style={{ color: "var(--text-muted)", fontSize: "16px", fontWeight: "500" }}>Refine, update, or purge existing loan documentation.</p>
       </div>
 
-      <div style={{ display: "flex", gap: "15px", marginBottom: "40px", justifyContent: "center", alignItems: "center" }}>
-        <div style={{ position: "relative", flex: "1", maxWidth: "500px" }}>
-          <input
-            placeholder="Identify record by name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={{
-              width: "100%", paddingLeft: "50px"
-            }}
-            onKeyDown={(e) => { if (e.key === "Enter") search(); }}
-          />
-          <svg style={{ position: "absolute", left: "18px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        </div>
-        <button onClick={search} className="btn-primary" style={{ padding: "0 30px", height: "56px" }}>Execute Search</button>
+      <div style={{ display: "flex", gap: "15px", marginBottom: "30px", justifyContent: "center", alignItems: "center" }}>
+        <input
+          placeholder="Enter customer name..."
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={{
+            flex: "1", maxWidth: "400px", padding: "12px 16px", borderRadius: "10px",
+            background: "#ffffff", border: "1px solid #000000", color: "#000000", outline: "none"
+          }}
+          onKeyDown={(e) => { if (e.key === "Enter") search(); }}
+        />
+        <button onClick={search} style={btnStyle("#f59e0b")}>Search</button>
       </div>
 
       <div style={{ background: "var(--surface-low)", borderRadius: "20px", border: "1px solid var(--surface-high)", overflow: "hidden" }}>
@@ -157,8 +155,8 @@ function LoanManage() {
 
       {editingId && (
         <div style={modalOverlayStyle}>
-          <div className="glass-card" style={modalStyle}>
-            <h3 style={{ marginTop: 0, marginBottom: "25px", fontSize: "24px", fontWeight: "900", color: "var(--primary)", textAlign: "center", letterSpacing: "-0.5px" }}>Edit Secure Record</h3>
+          <div style={modalStyle}>
+            <h3 style={{ marginTop: 0, marginBottom: "20px", fontSize: "20px", fontWeight: "600", color: "#000" }}>Edit Loan Record</h3>
             
             <div style={formGroupStyle}>
               <label className="label-small" style={{ marginBottom: "8px" }}>Client Name</label>
@@ -199,12 +197,16 @@ function LoanManage() {
   );
 }
 
-const thStyle = { padding: "20px 24px", fontWeight: "800", color: "var(--primary)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "1.5px" };
-const tdStyle = { padding: "20px 24px", color: "var(--text-main)", fontSize: "15px", fontWeight: "600" };
+const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
+const tdStyle = { padding: "16px", color: "#000000", fontSize: "15px", fontWeight: "500" };
+const btnStyle = (bg) => ({ padding: "12px 30px", background: bg, color: "white", border: "none", borderRadius: "10px", fontWeight: "600", cursor: "pointer" });
+const actionBtnStyle = { padding: "6px 12px", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontSize: "13px" };
 
-const modalOverlayStyle = { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(255, 255, 255, 0.4)", backdropFilter: "blur(12px)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000 };
-const modalStyle = { background: "var(--surface-lowest)", padding: "40px", borderRadius: "28px", border: "1px solid var(--surface-high)", width: "100%", maxWidth: "450px", boxShadow: "0 40px 100px rgba(0, 0, 0, 0.1)" };
-const formGroupStyle = { display: "flex", flexDirection: "column", marginBottom: "20px" };
+const modalOverlayStyle = { position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0, 0, 0, 0.6)", backdropFilter: "blur(5px)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 1000 };
+const modalStyle = { background: "#ffffff", padding: "30px", borderRadius: "16px", border: "1px solid var(--glass-border)", width: "100%", maxWidth: "400px", boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)" };
+const formGroupStyle = { display: "flex", flexDirection: "column", gap: "6px", marginBottom: "15px" };
+const labelStyle = { fontSize: "13px", color: "#000", fontWeight: "600" };
+const modalInputStyle = { width: "100%", padding: "10px 14px", borderRadius: "8px", background: "#f8fafc", border: "1px solid #e2e8f0", color: "#000", outline: "none", boxSizing: "border-box", fontFamily: "inherit" };
 
 export default LoanManage;
 

@@ -105,20 +105,18 @@ function LoanRepayment() {
 
       {!selectedLoan ? (
         <>
-          <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "40px" }}>
-            <div style={{ position: "relative", flex: "1", maxWidth: "500px" }}>
-              <input
-                placeholder="Search beneficiary record..."
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                onKeyDown={(e) => { if (e.key === "Enter") searchLoans(); }}
-                style={{
-                  width: "100%", paddingLeft: "50px"
-                }}
-              />
-              <svg style={{ position: "absolute", left: "18px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
-            <button onClick={searchLoans} className="btn-primary" style={{ padding: "0 35px", height: "56px" }}>Initialize Search</button>
+          <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "30px" }}>
+            <input
+              placeholder="Enter customer name..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") searchLoans(); }}
+              style={{
+                flex: "1", maxWidth: "400px", padding: "12px 16px", borderRadius: "10px",
+                background: "var(--surface-color)", border: "1px solid #000", color: "#000", outline: "none"
+              }}
+            />
+            <button onClick={searchLoans} style={btnStyle("#6366f1")}>Search</button>
           </div>
 
           {loans.length > 0 && (
@@ -224,11 +222,11 @@ function LoanRepayment() {
               type="number"
               value={repaymentAmount}
               onChange={(e) => setRepaymentAmount(e.target.value)}
-              placeholder="Confirm final amount"
-              style={{
-                width: "100%", padding: "20px", borderRadius: "16px", fontSize: "22px", fontWeight: "800",
-                background: "var(--surface-low)", border: "1px solid var(--primary)", color: "#10b981", outline: "none",
-                marginBottom: "30px", textAlign: "center", letterSpacing: "1px"
+              placeholder="Enter amount being paid"
+               style={{
+                width: "100%", padding: "16px", borderRadius: "10px", fontSize: "18px", fontWeight: "600",
+                background: "var(--surface-color)", border: "1px solid #000", color: "#000", outline: "none",
+                marginBottom: "20px"
               }}
             />
 
@@ -249,10 +247,21 @@ function LoanRepayment() {
   );
 }
 
-const thStyle = { padding: "20px 24px", fontWeight: "800", color: "var(--primary)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "1.5px" };
-const tdStyle = { padding: "20px 24px", color: "var(--text-main)", fontSize: "15px", fontWeight: "600" };
-const valStyle = { color: "var(--text-main)", fontWeight: "800", fontSize: "16px" };
-const infoGroupStyle = { display: "flex", flexDirection: "column", gap: "4px" };
+const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
+const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" };
+const labelStyle = { color: "#000", fontSize: "14px", fontWeight: "600" };
+const valStyle = { color: "#000", fontWeight: "500", fontSize: "15px" };
+
+const btnStyle = (bg, color="white", border="none") => ({
+  padding: "12px 25px",
+  background: bg,
+  color: color,
+  border: border,
+  borderRadius: "10px",
+  fontWeight: "600",
+  cursor: "pointer",
+  transition: "all 0.2s"
+});
 
 export default LoanRepayment;
 

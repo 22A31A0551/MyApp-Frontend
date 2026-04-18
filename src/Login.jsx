@@ -91,9 +91,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
           padding: "50px 40px",
           width: "440px",
           textAlign: "center",
-          background: "var(--surface-lowest)",
-          border: "1px solid var(--surface-high)",
-          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.08)",
+          backgroundColor: "#ffffff"
         }}
       >
         <div style={{ marginBottom: "35px" }}>
@@ -111,8 +109,8 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             color: "#fff",
             boxShadow: "0 10px 20px rgba(79, 70, 229, 0.2)"
           }}>S</div>
-          <h2 style={{ fontSize: "28px", fontWeight: "900", color: "var(--text-main)", letterSpacing: "-1.5px" }}>
-            {mode === "login" ? "Sreenu Banker's" : "Join the Portal"}
+          <h2 style={{ fontSize: "24px", fontWeight: "700", color: "var(--text-main)" }}>
+            {mode === "login" ? "Welcome Back" : "Create Account"}
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: "14px", marginTop: "8px", fontWeight: "500" }}>
             {mode === "login" ? "Secure access to your gold loan dashboard" : "Register to start your financial journey"}
@@ -122,7 +120,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
         <div style={{ textAlign: "left", marginBottom: "30px" }}>
           {mode === "login" ? (
             <>
-              <label className="label-small" style={{ marginBottom: "10px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Phone Number</label>
               <input
                 type="text"
                 placeholder="10-digit mobile number"
@@ -133,7 +131,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             </>
           ) : (
             <>
-              <label className="label-small" style={{ marginBottom: "10px", display: "block", marginLeft: "4px" }}>Phone Number</label>
+              <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Phone Number</label>
               <input
                 type="text"
                 placeholder="10-digit mobile number"
@@ -144,7 +142,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
             </>
           )}
 
-          <label className="label-small" style={{ marginBottom: "10px", display: "block", marginLeft: "4px" }}>Password</label>
+          <label style={{ fontSize: "12px", color: "#000", marginBottom: "8px", display: "block", marginLeft: "4px", fontWeight: "600" }}>Password</label>
           <input
             type="password"
             placeholder="••••••••"

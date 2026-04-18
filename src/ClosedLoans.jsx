@@ -58,7 +58,12 @@ function ClosedLoans() {
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: "100%",
-              paddingLeft: "45px"
+              padding: "10px 10px 10px 40px",
+              borderRadius: "8px",
+              border: "1px solid #000",
+              background: "rgba(255, 255, 255, 0.05)",
+              color: "#000",
+              outline: "none"
             }}
           />
           <svg style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -133,8 +138,8 @@ function ClosedLoans() {
   );
 }
 
-const thStyle = { padding: "20px 24px", fontWeight: "800", color: "var(--primary)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "1.5px" };
-const tdStyle = { padding: "20px 24px", color: "var(--text-main)", fontSize: "15px", fontWeight: "600" };
+const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
+const tdStyle = { padding: "16px", color: "#000000", fontSize: "15px", fontWeight: "500" };
 
 export default ClosedLoans;
 

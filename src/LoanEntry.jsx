@@ -21,12 +21,14 @@ function LoanEntry() {
     try {
       const response = await fetch("http://localhost:8080/api/loans", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(form),
       });
 
       if (response.ok) {
-        alert("Loan Saved to Secure Database ✅");
+        alert("Loan Saved to Database ✅");
         handleClear();
       } else {
         alert("Error saving data ❌");
@@ -53,30 +55,28 @@ function LoanEntry() {
 
   const handlePrint = () => {
     const printContent = `
-      <div style="font-family: 'Outfit', sans-serif; padding: 50px; color: #111827; max-width: 650px; margin: auto; border: 2px solid #4f46e5; border-radius: 20px; background: #fff;">
-        <div style="text-align: center; margin-bottom: 40px;">
-          <h1 style="color: #4f46e5; margin-bottom: 5px; font-size: 32px; letter-spacing: -1px;">SREENU BANKER'S</h1>
-          <p style="color: #6b7280; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Premium Gold & Silver Financing</p>
-          <div style="margin-top: 10px; height: 1px; background: linear-gradient(90deg, transparent, #4f46e5, transparent); width: 100%;"></div>
+      <div style="font-family: Arial; padding: 40px; color: #1e293b; max-width: 600px; margin: auto; border: 1px solid #e2e8f0; border-radius: 12px;">
+        <div style="text-align: center; margin-bottom: 30px;">
+          <h1 style="color: #6366f1; margin-bottom: 5px;">SAI FINANCE COMPANY</h1>
+          <p style="color: #64748b; font-size: 14px;">Kakinada, Andhra Pradesh • Ph: 9876543210</p>
         </div>
-        <div style="padding: 20px 0;">
-          <h3 style="color: #111827; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; margin-bottom: 20px;">Loan Transaction Summary</h3>
+        <div style="border-top: 2px solid #f1f5f9; padding-top: 20px;">
           ${Object.entries(form).map(([key, value]) => `
-            <div style="display: flex; justify-content: space-between; margin-bottom: 14px; border-bottom: 1px solid #f3f4f6; padding-bottom: 8px;">
-              <span style="font-weight: 700; text-transform: capitalize; color: #6b7280; width: 180px;">${key.replace(/([A-Z])/g, ' $1')}:</span>
-              <span style="color: #111827; font-weight: 500;">${value || "N/A"}</span>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #f8fafc; padding-bottom: 8px;">
+              <span style="font-weight: 600; text-transform: capitalize; color: #475569;">${key}:</span>
+              <span style="color: #1e293b;">${value || "N/A"}</span>
             </div>
           `).join("")}
         </div>
-        <div style="text-align: center; margin-top: 50px; border-top: 1px solid #e5e7eb; padding-top: 30px;">
-          <p style="font-style: italic; color: #6b7280; font-size: 13px;">This document serves as a digital confirmation of your loan application with Sreenu Banker's.</p>
-          <p style="font-weight: 800; margin-top: 15px; font-size: 18px; color: #4f46e5;">Thank You for Your Trust 🙏</p>
+        <div style="text-align: center; margin-top: 40px; border-top: 2px solid #f1f5f9; padding-top: 20px;">
+          <p style="font-style: italic; color: #64748b;">This is a computer-generated receipt.</p>
+          <p style="font-weight: 700; margin-top: 10px;">Thank You 🙏</p>
         </div>
       </div>
     `;
 
-    const newWindow = window.open("", "", "width=900,height=900");
-    newWindow.document.write(`<html><head><title>Sreenu Banker's Receipt</title><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet"></head><body style="padding:40px; background: #f9fafb;">${printContent}</body></html>`);
+    const newWindow = window.open("", "", "width=800,height=800");
+    newWindow.document.write(`<html><head><title>Loan Receipt</title></head><body style="padding:20px;">${printContent}</body></html>`);
     newWindow.document.close();
     setTimeout(() => {
       newWindow.print();
@@ -85,163 +85,122 @@ function LoanEntry() {
 
   return (
     <div 
-      className="fade-in glass-card" 
+      className="glass" 
       style={{
-        maxWidth: "850px",
+        maxWidth: "700px",
         margin: "0 auto",
-        padding: "50px",
-        background: "var(--surface-lowest)",
-        border: "1px solid var(--surface-high)",
-        boxShadow: "0 30px 60px rgba(0,0,0,0.05)"
+        padding: "40px",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: "50px" }}>
-        <h2 style={{ fontSize: "36px", fontWeight: "900", marginBottom: "12px", color: "var(--text-main)", letterSpacing: "-1.5px" }}>
-          New Loan Application
-        </h2>
-        <p style={{ color: "var(--text-muted)", fontSize: "16px", fontWeight: "500" }}>Complete the formal appraisal and application process.</p>
+      <div style={{ textAlign: "center", marginBottom: "40px" }}>
+        <h2 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "8px" }}>New Loan Application</h2>
+        <p style={{ color: "var(--text-muted)" }}>Fill in the details below to complete the loan entry.</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "35px" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "25px" }}>
         {/* Customer Details */}
         <div style={{ gridColumn: "1 / -1" }}>
-          <h3 style={sectionTitleStyle}>Customer Identification</h3>
+          <h3 style={sectionTitleStyle}>Customer Information</h3>
         </div>
         
         <div style={inputGroupStyle}>
-          <label className="label-small">Beneficiary Name</label>
-          <input 
-            name="name" 
-            value={form.name} 
-            onChange={handleChange} 
-            placeholder="e.g. Rajesh Kumar" 
-          />
+          <label style={labelStyle}>Full Name</label>
+          <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Contact Number</label>
-          <input 
-            name="phone" 
-            value={form.phone} 
-            onChange={handleChange} 
-            placeholder="+91 9xxx-xxxxxx" 
-          />
+          <label style={labelStyle}>Phone Number</label>
+          <input name="phone" value={form.phone} onChange={handleChange} placeholder="+91 00000 00000" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Email Address (if applicable)</label>
-          <input 
-            name="email" 
-            value={form.email} 
-            onChange={handleChange} 
-            placeholder="rajesh@example.com" 
-          />
+          <label style={labelStyle}>Email Address (Optional)</label>
+          <input name="email" value={form.email} onChange={handleChange} placeholder="john@example.com" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Permanent Address</label>
-          <input 
-            name="address" 
-            value={form.address} 
-            onChange={handleChange} 
-            placeholder="House No, Landmark, City" 
-          />
+          <label style={labelStyle}>Residential Address</label>
+          <input name="address" value={form.address} onChange={handleChange} placeholder="Street, City, State" style={inputStyle} />
         </div>
 
         {/* Loan Details */}
-        <div style={{ gridColumn: "1 / -1", marginTop: "20px" }}>
-          <h3 style={sectionTitleStyle}>Collateral & Financing</h3>
+        <div style={{ gridColumn: "1 / -1", marginTop: "15px" }}>
+          <h3 style={sectionTitleStyle}>Loan Details</h3>
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Collateral Item Description</label>
-          <input 
-            name="item" 
-            value={form.item} 
-            onChange={handleChange} 
-            placeholder="e.g. 22K Gold Bangle" 
-          />
+          <label style={labelStyle}>Collateral Item</label>
+          <input name="item" value={form.item} onChange={handleChange} placeholder="Gold Ornament" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Net Weight (gm)</label>
-          <input 
-            name="weight" 
-            value={form.weight} 
-            onChange={handleChange} 
-            placeholder="0.00 ct" 
-          />
+          <label style={labelStyle}>Weight (gm)</label>
+          <input name="weight" value={form.weight} onChange={handleChange} placeholder="0.00" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Sanctioned Amount (₹)</label>
-          <input 
-            name="amount" 
-            value={form.amount} 
-            onChange={handleChange} 
-            placeholder="Enter Amount" 
-            style={{ fontWeight: "700", color: "#10b981" }} 
-          />
+          <label style={labelStyle}>Loan Amount (₹)</label>
+          <input name="amount" value={form.amount} onChange={handleChange} placeholder="50,000" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Interest Rate (% monthly)</label>
-          <input 
-            name="interest" 
-            value={form.interest} 
-            onChange={handleChange} 
-            placeholder="Standard is 2%" 
-          />
+          <label style={labelStyle}>Interest Rate (%)</label>
+          <input name="interest" value={form.interest} onChange={handleChange} placeholder="2.0" style={inputStyle} />
         </div>
 
         <div style={inputGroupStyle}>
-          <label className="label-small">Issuance Date</label>
-          <input 
-            type="date" 
-            name="date" 
-            value={form.date} 
-            onChange={handleChange} 
-          />
+          <label style={labelStyle}>Application Date</label>
+          <input type="date" name="date" value={form.date} onChange={handleChange} style={inputStyle} />
         </div>
       </div>
 
       <div style={{ 
         display: "flex", 
-        flexWrap: "wrap",
         justifyContent: "center", 
         gap: "20px", 
-        marginTop: "50px",
-        paddingTop: "40px",
-        borderTop: "1px solid var(--surface-high)"
+        marginTop: "40px",
+        paddingTop: "30px",
+        borderTop: "1px solid var(--glass-border)"
       }}>
         <button 
           onClick={handleSubmit} 
-          className="btn-primary"
-          style={{ padding: "16px 40px" }}
+          style={{ 
+            padding: "12px 30px", 
+            background: "var(--primary)", 
+            color: "white", 
+            border: "none", 
+            borderRadius: "10px",
+            fontWeight: "600"
+          }}
         >
-          Finalize & Save Loan
-        </button>
-        <button 
-          onClick={handlePrint} 
-          className="btn-secondary"
-          style={{ padding: "16px 40px" }}
-        >
-          Generate Receipt
+          Submit Loan
         </button>
         <button 
           onClick={handleClear} 
           style={{ 
-            padding: "16px 20px", 
-            background: "transparent", 
-            color: "var(--text-muted)", 
-            border: "none", 
-            borderRadius: "14px",
-            fontWeight: "600",
-            fontSize: "14px",
-            cursor: "pointer"
+            padding: "12px 30px", 
+            background: "var(--surface-color)", 
+            color: "var(--text-main)", 
+            border: "1px solid var(--glass-border)", 
+            borderRadius: "10px",
+            fontWeight: "600"
           }}
         >
-          Reset Form
+          Clear Form
+        </button>
+        <button 
+          onClick={handlePrint} 
+          style={{ 
+            padding: "12px 30px", 
+            background: "var(--accent)", 
+            color: "black", 
+            border: "none", 
+            borderRadius: "10px",
+            fontWeight: "600"
+          }}
+        >
+          Print Receipt
         </button>
       </div>
     </div>
@@ -249,23 +208,36 @@ function LoanEntry() {
 }
 
 const sectionTitleStyle = {
-  fontSize: "12px",
+  fontSize: "14px",
   textTransform: "uppercase",
-  letterSpacing: "1.5px",
+  letterSpacing: "1px",
   color: "var(--primary)",
-  fontWeight: "800",
-  marginBottom: "15px",
-  display: "inline-block",
-  padding: "4px 12px",
-  background: "var(--surface-low)",
-  borderRadius: "8px",
-  border: "1px solid var(--surface-high)"
+  fontWeight: "700",
+  marginBottom: "10px",
+  opacity: 0.9
 };
 
 const inputGroupStyle = {
   display: "flex",
   flexDirection: "column",
-  gap: "10px"
+  gap: "8px"
 };
 
-export default LoanEntry;
+const labelStyle = {
+  fontSize: "13px",
+  color: "#000",
+  fontWeight: "600",
+  marginLeft: "4px"
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "12px 16px",
+  borderRadius: "10px",
+  border: "1px solid #000",
+  background: "var(--surface-color)",
+  color: "#000",
+  outline: "none"
+};
+
+export default LoanEntry;
