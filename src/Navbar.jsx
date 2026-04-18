@@ -70,28 +70,39 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
       padding: "0 30px",
       zIndex: 1000,
       justifyContent: "space-between",
-      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
-      backgroundColor: "#050505",
-      color: "#ffffff",
-      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      backgroundColor: "#0a192f",
+      color: "#e2e8f0",
+      borderBottom: "1px solid rgba(255,255,255,0.1)",
       boxSizing: "border-box"
     }}>
-      {/* LEFT: Logo/Admin */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      {/* LEFT: Logo/Brand */}
+      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
         <div style={{
-          background: "linear-gradient(45deg, var(--primary), var(--secondary))",
-          width: "35px",
-          height: "35px",
-          borderRadius: "10px",
+          background: "linear-gradient(135deg, var(--primary), var(--secondary))",
+          width: "42px",
+          height: "42px",
+          borderRadius: "12px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          fontWeight: "bold",
-          fontSize: "18px"
+          fontWeight: "800",
+          fontSize: "22px",
+          color: "#fff",
+          boxShadow: "0 4px 12px rgba(79, 70, 229, 0.2)"
         }}>S</div>
-        <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "0.5px" }}>
-          Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"} <span style={{opacity: 0.8}}>👋</span>
-        </span>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span className="brand-font" style={{ 
+            fontSize: "20px", 
+            fontWeight: "700", 
+            letterSpacing: "-0.5px",
+            color: "#fff"
+          }}>
+            Sreenu Banker's
+          </span>
+          <span className="label-small" style={{ fontSize: "10px", marginTop: "-2px", color: "rgba(255,255,255,0.6)" }}>
+            Secure Gold Financing
+          </span>
+        </div>
       </div>
 
       {/* CENTER: Search */}
@@ -112,14 +123,16 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
             style={{
               width: "100%",
               paddingLeft: "45px",
-              background: "#ffffff",
-              border: "1px solid #e2e8f0",
-              color: "#0f172a",
-              boxShadow: "inset 0 1px 3px rgba(0,0,0,0.05)"
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.1)",
+              color: "#fff",
+              outline: "none",
+              borderRadius: "12px",
+              height: "42px"
             }}
           />
           <svg
-            style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", color: "#64748b" }}
+            style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", color: "rgba(255,255,255,0.5)" }}
             width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
           >
             <circle cx="11" cy="11" r="8"></circle>
@@ -137,11 +150,11 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
               maxHeight: "350px",
               overflowY: "auto",
               borderRadius: "12px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.08)",
               padding: "10px",
               zIndex: 1001,
-              background: "var(--surface-color)",
-              border: "1px solid var(--glass-border)",
+              background: "var(--surface-lowest)",
+              border: "1px solid var(--surface-high)",
               animation: "fadeIn 0.2s ease-out",
               color: "var(--text-main)"
             }}>
@@ -149,20 +162,20 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
                 <div style={{ padding: "10px", textAlign: "center", color: "var(--text-muted)", fontSize: "14px" }}>Searching...</div>
               ) : searchResults.length > 0 ? (
                 <div>
-                  <div style={{ padding: "8px 10px", fontSize: "12px", color: "var(--text-muted)", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  <div className="label-small" style={{ padding: "8px 10px" }}>
                     Active Loans for "{searchQuery}"
                   </div>
                   {searchResults.map((loan, idx) => (
                     <div key={loan._id || idx} style={{
                       padding: "12px",
-                      borderBottom: idx < searchResults.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
+                      borderBottom: idx < searchResults.length - 1 ? "1px solid var(--surface-high)" : "none",
                       display: "flex",
                       flexDirection: "column",
                       gap: "6px",
-                      background: "rgba(255,255,255,0.02)",
                       borderRadius: "8px",
                       marginBottom: idx < searchResults.length - 1 ? "6px" : "0",
                       transition: "background 0.2s",
+                      cursor: "pointer"
                     }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <span style={{ fontWeight: "600", color: "var(--text-main)", fontSize: "15px" }}>{loan.name}</span>
@@ -193,18 +206,19 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
           style={{
             padding: "10px 20px",
             borderRadius: "10px",
-            border: "1px solid rgba(255,255,255,0.2)",
             background: isLoggedIn ? "rgba(255,255,255,0.1)" : "var(--primary)",
-            color: "white",
+            color: "#fff",
             fontSize: "14px",
             fontWeight: "600",
+            border: isLoggedIn ? "1px solid rgba(255,255,255,0.1)" : "none",
+            transition: "var(--transition)"
           }}
         >
           {isLoggedIn ? "Dashboard" : "Login"}
         </button>
 
         {/* Notification */}
-        <div style={{ position: "relative", cursor: "pointer", display: "flex", alignItems: "center", color: "#ffffff" }}>
+        <div style={{ position: "relative", cursor: "pointer", display: "flex", alignItems: "center", color: "rgba(255,255,255,0.8)" }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
@@ -223,7 +237,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
             justifyContent: "center",
             alignItems: "center",
             fontWeight: "bold",
-            border: "2px solid var(--bg-color)"
+            border: "2px solid var(--surface-lowest)"
           }}>3</span>
         </div>
 
@@ -236,10 +250,10 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
               height: "38px",
               borderRadius: "12px",
               overflow: "hidden",
-              border: "2px solid var(--glass-border)",
+              border: "2px solid rgba(255,255,255,0.1)",
               cursor: "pointer",
               transition: "var(--transition)",
-              background: "var(--surface-color)"
+              background: "rgba(255,255,255,0.05)"
             }}
           >
             <img src={profileicon} alt="profile" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -252,9 +266,13 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
               right: "0",
               width: "180px",
               padding: "8px",
-              boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
+              borderRadius: "var(--radius-md)",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
               animation: "fadeIn 0.2s ease-out",
-              color: "var(--text-main)"
+              color: "#f8fafc",
+              background: "#0f172a",
+              border: "1px solid rgba(255,255,255,0.1)",
+              zIndex: 1002
             }}>
               <div style={menuItemStyle} onClick={() => alert("Settings clicked")}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: "10px"}}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
@@ -269,6 +287,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, userRole }) {
         </div>
       </div>
     </nav>
+
   );
 }
 
@@ -280,7 +299,7 @@ const menuItemStyle = {
   alignItems: "center",
   fontSize: "14px",
   transition: "var(--transition)",
-  color: "var(--text-main)",
+  color: "#f8fafc",
   "&:hover": {
     background: "rgba(255,255,255,0.05)"
   }

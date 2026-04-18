@@ -7,11 +7,9 @@ function ClosedLoans() {
 
   const fetchClosedLoans = async () => {
     try {
-      // Assuming GET /api/loans returns all loans
       const res = await fetch(`http://localhost:8080/api/loans`);
       if (res.ok) {
         const result = await res.json();
-        // Filter loans with status 'Closed'
         const closed = result.filter(loan => loan.status === "Closed");
         setData(closed);
       } else {
@@ -34,77 +32,96 @@ function ClosedLoans() {
 
   return (
     <div 
-      className="glass" 
+      className="fade-in glass-card" 
       style={{
-        maxWidth: "900px",
+        maxWidth: "950px",
         margin: "0 auto",
-        padding: "40px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
+        padding: "50px",
+        background: "var(--surface-lowest)",
+        border: "1px solid var(--surface-high)",
+        boxShadow: "0 30px 60px rgba(0,0,0,0.05)"
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: "40px" }}>
-        <h2 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "8px" }}>Closed Loans</h2>
-        <p style={{ color: "var(--text-muted)" }}>History of successfully paid and closed accounts.</p>
+      <div style={{ textAlign: "center", marginBottom: "50px" }}>
+        <h2 style={{ fontSize: "36px", fontWeight: "900", marginBottom: "12px", color: "var(--text-main)", letterSpacing: "-1.5px" }}>
+          Archive Vault
+        </h2>
+        <p style={{ color: "var(--text-muted)", fontSize: "16px", fontWeight: "500" }}>Historical records of successfully settled and closed accounts.</p>
       </div>
 
-      <div style={{ marginBottom: "20px", display: "flex", justifyContent: "flex-end" }}>
-        <div style={{ position: "relative", width: "100%", maxWidth: "300px" }}>
-          <svg style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <div style={{ marginBottom: "30px", display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ position: "relative", width: "100%", maxWidth: "350px" }}>
           <input 
             type="text" 
-            placeholder="Search by name..." 
+            placeholder="Search archived beneficiaries..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: "100%",
-              padding: "10px 10px 10px 40px",
-              borderRadius: "8px",
-              border: "1px solid var(--glass-border)",
-              background: "rgba(255, 255, 255, 0.05)",
-              color: "var(--text-main)",
-              fontSize: "14px",
-              outline: "none"
+              paddingLeft: "45px"
             }}
           />
+          <svg style={{ position: "absolute", left: "15px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </div>
       </div>
 
-      <div style={{ background: "var(--surface-color)", borderRadius: "12px", border: "1px solid var(--glass-border)", overflowX: "auto" }}>
+      <div style={{ 
+        background: "var(--surface-low)", 
+        borderRadius: "20px", 
+        border: "1px solid var(--surface-high)", 
+        overflow: "hidden" 
+      }}>
         {loading ? (
-          <p style={{ padding: "30px", textAlign: "center", color: "var(--text-muted)" }}>Loading records...</p>
+          <div style={{ padding: "80px", textAlign: "center" }}>
+            <div style={{ fontSize: "18px", color: "var(--primary)", fontWeight: "700" }}>Accessing secure archives...</div>
+          </div>
         ) : (
           <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
             <thead>
-              <tr style={{ background: "rgba(255, 255, 255, 0.05)", borderBottom: "1px solid var(--glass-border)" }}>
-                <th style={thStyle}>Name</th>
-                <th style={thStyle}>Item</th>
-                <th style={thStyle}>Date Closed</th>
-                <th style={thStyle}>Amount Paid</th>
-                <th style={thStyle}>Status</th>
+              <tr style={{ background: "var(--surface-mid)", borderBottom: "1px solid var(--surface-high)" }}>
+                <th style={thStyle}>Client Name</th>
+                <th style={thStyle}>Asset Detail</th>
+                <th style={thStyle}>Closure Date</th>
+                <th style={thStyle}>Final Settlement</th>
+                <th style={thStyle}>Verification</th>
               </tr>
             </thead>
             <tbody>
               {filteredData.length > 0 ? (
-                filteredData.map((loan) => (
-                  <tr key={loan.id} style={{ borderBottom: "1px solid var(--glass-border)" }}>
+                filteredData.map((loan, idx) => (
+                  <tr key={loan.id} style={{ 
+                    borderBottom: idx === filteredData.length - 1 ? "none" : "1px solid var(--surface-high)",
+                    transition: "var(--transition)"
+                  }}
+                  onMouseOver={(e) => e.currentTarget.style.background = "var(--surface-high)"}
+                  onMouseOut={(e) => e.currentTarget.style.background = "transparent"}
+                  >
                     <td style={tdStyle}>{loan.name}</td>
                     <td style={tdStyle}>{loan.item}</td>
                     <td style={tdStyle}>{loan.repaymentDate || "N/A"}</td>
-                    <td style={{ ...tdStyle, color: "#10b981", fontWeight: "600" }}>₹{loan.amountPaid || loan.amount}</td>
+                    <td style={{ ...tdStyle, color: "#10b981", fontWeight: "700" }}>₹{loan.amountPaid || loan.amount}</td>
                     <td style={tdStyle}>
                       <span style={{ 
-                        background: "rgba(16, 185, 129, 0.2)", color: "#10b981", 
-                        padding: "4px 10px", borderRadius: "12px", fontSize: "12px", fontWeight: "700" 
+                        background: "#ecfdf5", color: "#10b981", 
+                        padding: "6px 14px", borderRadius: "12px", fontSize: "11px", fontWeight: "800",
+                        letterSpacing: "1px", border: "1px solid #d1fae5"
                       }}>
-                        CLOSED
+                        SETTLED
                       </span>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" style={{ padding: "30px", textAlign: "center", color: "var(--text-muted)" }}>
-                    No closed loans found in the system.
+                  <td colSpan="5" style={{ padding: "80px", textAlign: "center", color: "var(--text-muted)" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center" }}>
+                      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.2 }}>
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                      </svg>
+                      <span style={{ fontWeight: "500" }}>No historical records match your search criteria.</span>
+                    </div>
                   </td>
                 </tr>
               )}
@@ -116,7 +133,8 @@ function ClosedLoans() {
   );
 }
 
-const thStyle = { padding: "16px", fontWeight: "600", color: "var(--text-main)", fontSize: "14px", textTransform: "uppercase" };
-const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" };
+const thStyle = { padding: "20px 24px", fontWeight: "800", color: "var(--primary)", fontSize: "12px", textTransform: "uppercase", letterSpacing: "1.5px" };
+const tdStyle = { padding: "20px 24px", color: "var(--text-main)", fontSize: "15px", fontWeight: "600" };
 
 export default ClosedLoans;
+
