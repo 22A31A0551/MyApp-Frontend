@@ -10,7 +10,7 @@ const Transactions = ({ setPage }) => {
       try {
         const res = await fetch("http://localhost:8080/api/loans");
         const loans = await res.json();
-        
+
         if (Array.isArray(loans)) {
           const list = [];
           loans.forEach(loan => {
@@ -37,7 +37,7 @@ const Transactions = ({ setPage }) => {
               });
             }
           });
-          
+
           // Sort by date descending
           list.sort((a, b) => new Date(b.date) - new Date(a.date));
           setTransactions(list);
@@ -61,7 +61,7 @@ const Transactions = ({ setPage }) => {
     return Array.from(years).sort((a, b) => b - a);
   })();
 
-  const filteredTransactions = transactions.filter(t => 
+  const filteredTransactions = transactions.filter(t =>
     new Date(t.date).getFullYear() === selectedYear
   );
 
@@ -72,27 +72,16 @@ const Transactions = ({ setPage }) => {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px", flexWrap: "wrap", gap: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-          <button 
-            onClick={() => setPage("home")}
-            style={{ 
-              background: "transparent", border: "1.5px solid #000", color: "#000", 
-              fontWeight: "700", padding: "8px 16px", borderRadius: "10px", cursor: "pointer",
-              display: "flex", alignItems: "center", gap: "8px"
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back
-          </button>
           <h2 style={{ fontSize: "28px", fontWeight: "800", color: "#111827" }}>Transaction History</h2>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <label style={{ fontWeight: "700", color: "#64748b" }}>Filter Year:</label>
-          <select 
+          <select
             value={selectedYear}
             onChange={(e) => setSelectedYear(parseInt(e.target.value))}
             style={{
-              padding: "10px 20px", borderRadius: "10px", border: "1.5px solid #000", 
+              padding: "10px 20px", borderRadius: "10px", border: "1.5px solid #000",
               background: "white", fontWeight: "700", outline: "none", cursor: "pointer"
             }}
           >
@@ -107,7 +96,7 @@ const Transactions = ({ setPage }) => {
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: "rgba(0,0,0,0.03)", borderBottom: "1.5px solid #000" }}>
-              <th style={thStyle}>Date & Time</th>
+              <th style={thStyle}>Date</th>
               <th style={thStyle}>Customer Name</th>
               <th style={thStyle}>Transaction Type</th>
               <th style={{ ...thStyle, textAlign: "right" }}>Amount</th>
@@ -119,11 +108,10 @@ const Transactions = ({ setPage }) => {
                 <tr key={t.tid} style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}>
                   <td style={tdStyle}>
                     <div style={{ fontWeight: "700", color: "#000" }}>{t.date}</div>
-                    <div style={{ fontSize: "12px", color: "#64748b" }}>{t.time}</div>
                   </td>
                   <td style={{ ...tdStyle, fontWeight: "600", color: "#000" }}>{t.name}</td>
                   <td style={tdStyle}>
-                    <span style={{ 
+                    <span style={{
                       padding: "4px 10px", borderRadius: "20px", fontSize: "12px", fontWeight: "700",
                       background: t.amount < 0 ? "rgba(239, 68, 68, 0.1)" : "rgba(16, 185, 129, 0.1)",
                       color: t.amount < 0 ? "#ef4444" : "#10b981"

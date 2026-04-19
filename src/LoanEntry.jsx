@@ -84,8 +84,8 @@ function LoanEntry() {
   };
 
   return (
-    <div 
-      className="glass" 
+    <div
+      className="glass"
       style={{
         maxWidth: "700px",
         margin: "0 auto",
@@ -103,7 +103,7 @@ function LoanEntry() {
         <div style={{ gridColumn: "1 / -1" }}>
           <h3 style={sectionTitleStyle}>Customer Information</h3>
         </div>
-        
+
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Full Name</label>
           <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe" style={inputStyle} />
@@ -155,47 +155,47 @@ function LoanEntry() {
         </div>
       </div>
 
-      <div style={{ 
-        display: "flex", 
-        justifyContent: "center", 
-        gap: "20px", 
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "20px",
         marginTop: "40px",
         paddingTop: "30px",
         borderTop: "1px solid var(--glass-border)"
       }}>
-        <button 
-          onClick={handleSubmit} 
-          style={{ 
-            padding: "12px 30px", 
-            background: "var(--primary)", 
-            color: "white", 
-            border: "none", 
+        <button
+          onClick={handleSubmit}
+          style={{
+            padding: "12px 30px",
+            background: "var(--primary)",
+            color: "white",
+            border: "none",
             borderRadius: "10px",
             fontWeight: "600"
           }}
         >
           Submit Loan
         </button>
-        <button 
-          onClick={handleClear} 
-          style={{ 
-            padding: "12px 30px", 
-            background: "var(--surface-color)", 
-            color: "var(--text-main)", 
-            border: "1px solid var(--glass-border)", 
+        <button
+          onClick={handleClear}
+          style={{
+            padding: "12px 30px",
+            background: "var(--surface-color)",
+            color: "var(--text-main)",
+            border: "1px solid var(--glass-border)",
             borderRadius: "10px",
             fontWeight: "600"
           }}
         >
           Clear Form
         </button>
-        <button 
-          onClick={handlePrint} 
-          style={{ 
-            padding: "12px 30px", 
-            background: "var(--accent)", 
-            color: "black", 
-            border: "none", 
+        <button
+          onClick={handlePrint}
+          style={{
+            padding: "12px 30px",
+            background: "var(--accent)",
+            color: "black",
+            border: "none",
             borderRadius: "10px",
             fontWeight: "600"
           }}

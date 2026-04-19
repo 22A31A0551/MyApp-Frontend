@@ -25,25 +25,25 @@ function LoanRepayment() {
 
   const calculateTotals = (loan) => {
     if (!loan) return { interest: 0, total: 0, months: 0 };
-    
+
     const principal = parseFloat(loan.amount) || 0;
     const ratePerMonth = parseFloat(loan.interest) || 0; // Assuming interest is % per month
-    
+
     const loanDate = new Date(loan.date);
     const today = new Date();
-    
+
     if (isNaN(loanDate)) return { interest: 0, total: principal, months: 0 };
-    
+
     const diffTime = Math.abs(today - loanDate);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     // Prorate months based on 30-day month, minimum 1 month
     let months = diffDays / 30;
     if (months < 1) months = 1;
-    
+
     const interest = (principal * ratePerMonth * months) / 100;
     const total = principal + interest;
-    
+
     return {
       interest: Math.round(interest),
       total: Math.round(total),
@@ -51,54 +51,54 @@ function LoanRepayment() {
     };
   };
 
- const handleRepay = async () => {
-  if (!selectedLoan) return;
+  const handleRepay = async () => {
+    if (!selectedLoan) return;
 
-  try {
-    const todayDate = new Date().toISOString().split("T")[0];
+    try {
+      const todayDate = new Date().toISOString().split("T")[0];
 
-    // ✅ FIXED ENDPOINT
-    const response = await fetch(
-      `http://localhost:8080/api/loans/close/${selectedLoan.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      // ✅ FIXED ENDPOINT
+      const response = await fetch(
+        `http://localhost:8080/api/loans/close/${selectedLoan.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        // ✅ SEND ONLY REQUIRED DATA
-        body: JSON.stringify({
-          repaymentDate: todayDate,
-          amountPaid: repaymentAmount,
-        }),
-      }
-    );
-
-    if (response.ok) {
-      alert(
-        `✅ Loan Closed Successfully!\n\nCustomer: ${selectedLoan.name}\nDate: ${todayDate}\nAmount Paid: ₹${repaymentAmount}`
+          // ✅ SEND ONLY REQUIRED DATA
+          body: JSON.stringify({
+            repaymentDate: todayDate,
+            amountPaid: repaymentAmount,
+          }),
+        }
       );
 
-      setSelectedLoan(null);
-      setLoans([]);
-      setName("");
-      setRepaymentAmount("");
-    } else {
-      const text = await response.text();
-      console.error("Backend error:", text);
-      alert("❌ Error saving repayment data to the server.");
+      if (response.ok) {
+        alert(
+          `✅ Loan Closed Successfully!\n\nCustomer: ${selectedLoan.name}\nDate: ${todayDate}\nAmount Paid: ₹${repaymentAmount}`
+        );
+
+        setSelectedLoan(null);
+        setLoans([]);
+        setName("");
+        setRepaymentAmount("");
+      } else {
+        const text = await response.text();
+        console.error("Backend error:", text);
+        alert("❌ Error saving repayment data to the server.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("❌ Server error during repayment process.");
     }
-  } catch (error) {
-    console.error(error);
-    alert("❌ Server error during repayment process.");
-  }
-};
+  };
 
   const totals = selectedLoan ? calculateTotals(selectedLoan) : null;
 
   return (
-    <div 
-      className="glass" 
+    <div
+      className="glass"
       style={{
         maxWidth: "900px",
         margin: "0 auto",
@@ -149,12 +149,12 @@ function LoanRepayment() {
                       <td style={tdStyle}>₹{loan.amount}</td>
                       <td style={tdStyle}>{loan.interest}%/mo</td>
                       <td style={tdStyle}>
-                        <button 
+                        <button
                           onClick={() => {
                             setSelectedLoan(loan);
                             setRepaymentAmount(calculateTotals(loan).total);
-                          }} 
-                          style={{...btnStyle("#10b981"), padding: "6px 15px", fontSize: "14px"}}
+                          }}
+                          style={{ ...btnStyle("#10b981"), padding: "6px 15px", fontSize: "14px" }}
                         >
                           Select
                         </button>
@@ -175,7 +175,7 @@ function LoanRepayment() {
                 Back to List
               </button>
             </div>
-            
+
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "20px" }}>
               <div><span style={labelStyle}>Customer:</span> <span style={valStyle}>{selectedLoan.name}</span></div>
               <div><span style={labelStyle}>Item:</span> <span style={valStyle}>{selectedLoan.item}</span></div>
@@ -185,28 +185,28 @@ function LoanRepayment() {
 
             <div style={{ borderTop: "1px dashed var(--glass-border)", paddingTop: "20px", display: "flex", flexDirection: "column", gap: "12px" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={labelStyle}>Principal Amount:</span> 
+                <span style={labelStyle}>Principal Amount:</span>
                 <span style={valStyle}>₹{parseFloat(selectedLoan.amount).toLocaleString()}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={labelStyle}>Calculated Interest ({selectedLoan.interest}%/mo):</span> 
-                <span style={{...valStyle, color: "#f59e0b"}}>+ ₹{totals.interest.toLocaleString()}</span>
+                <span style={labelStyle}>Calculated Interest ({selectedLoan.interest}%/mo):</span>
+                <span style={{ ...valStyle, color: "#f59e0b" }}>+ ₹{totals.interest.toLocaleString()}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--glass-border)", paddingTop: "12px", marginTop: "4px" }}>
-                <span style={{ fontSize: "18px", fontWeight: "600", color: "var(--text-main)" }}>Total Due Amount:</span> 
+                <span style={{ fontSize: "18px", fontWeight: "600", color: "var(--text-main)" }}>Total Due Amount:</span>
                 <span style={{ fontSize: "22px", fontWeight: "700", color: "#10b981" }}>₹{totals.total.toLocaleString()}</span>
               </div>
             </div>
           </div>
-          
+
           <div style={{ background: "rgba(0,0,0,0.2)", padding: "20px", borderRadius: "12px", border: "1px solid var(--glass-border)" }}>
             <label style={{ display: "block", marginBottom: "10px", color: "var(--text-main)", fontWeight: "500" }}>Entering Repayment Amount (₹)</label>
-            <input 
+            <input
               type="number"
               value={repaymentAmount}
               onChange={(e) => setRepaymentAmount(e.target.value)}
               placeholder="Enter amount being paid"
-               style={{
+              style={{
                 width: "100%", padding: "16px", borderRadius: "10px", fontSize: "18px", fontWeight: "600",
                 background: "var(--surface-color)", border: "1px solid #000", color: "#000", outline: "none",
                 marginBottom: "20px"
@@ -214,13 +214,13 @@ function LoanRepayment() {
             />
 
             <div style={{ display: "flex", gap: "15px" }}>
-              <button onClick={handleRepay} style={{...btnStyle("#10b981"), flex: 1, padding: "15px", fontSize: "16px"}}>Confirm Payment</button>
-              <button 
+              <button onClick={handleRepay} style={{ ...btnStyle("#10b981"), flex: 1, padding: "15px", fontSize: "16px" }}>Confirm Payment</button>
+              <button
                 onClick={() => {
                   setSelectedLoan(null);
                   setRepaymentAmount("");
-                }} 
-                style={{...btnStyle("transparent", "var(--text-main)", "1px solid var(--glass-border)"), padding: "15px"}}
+                }}
+                style={{ ...btnStyle("transparent", "var(--text-main)", "1px solid var(--glass-border)"), padding: "15px" }}
               >
                 Cancel
               </button>
@@ -237,7 +237,7 @@ const tdStyle = { padding: "16px", color: "var(--text-muted)", fontSize: "15px" 
 const labelStyle = { color: "#000", fontSize: "14px", fontWeight: "600" };
 const valStyle = { color: "#000", fontWeight: "500", fontSize: "15px" };
 
-const btnStyle = (bg, color="white", border="none") => ({
+const btnStyle = (bg, color = "white", border = "none") => ({
   padding: "12px 25px",
   background: bg,
   color: color,
