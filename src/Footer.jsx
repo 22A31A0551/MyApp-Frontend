@@ -34,7 +34,7 @@ const Footer = () => {
             color: "#fff",
             letterSpacing: "-1px"
           }}>
-            Sreenu Banker's
+            Srinu Banker's
           </h3>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", lineHeight: "1.7", margin: 0, fontWeight: "500" }}>
             The gold standard in secure financing. Leveraging deep expertise and cutting-edge valuation precision since 1998.
