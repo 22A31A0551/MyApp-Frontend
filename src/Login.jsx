@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
+function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
   const [mode, setMode] = useState("login"); // 'login' | 'register'
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +26,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole }) {
 
           if (data && data.id) {
             setUserRole("user");
+            setUserPhone(identifier);
             setIsLoggedIn(true);
             setShowLogin(false);
           } else {

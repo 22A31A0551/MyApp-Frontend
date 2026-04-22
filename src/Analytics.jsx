@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Cell
 } from "recharts";
+import { calculateElapsedInterestMonths, calculateMonthlyInterestAmount } from "./interestUtils";
 
 const Analytics = ({ setPage }) => {
   const [loans, setLoans] = useState([]);
@@ -82,12 +83,18 @@ const Analytics = ({ setPage }) => {
     return data;
   })();
 
+  const totalAccruedInterest = allActiveLoans.reduce((sum, l) => {
+    const months = calculateElapsedInterestMonths(l.createdAt, l.date);
+    const monthly = calculateMonthlyInterestAmount(l.amount, l.interest);
+    return sum + (months * monthly);
+  }, 0);
+
   const stats = [
     { label: "Total Loan Amount", value: `₹${totalLoanAmount.toLocaleString()}`, color: "#6366f1", icon: "💰" },
+    { label: "Accrued Interest", value: `₹${totalAccruedInterest.toLocaleString()}`, color: "#f59e0b", icon: "📈" },
     { label: "Total Loans", value: totalLoansCount, color: "#22d3ee", icon: "📊" },
     { label: "Active Loans", value: totalActiveLoansCount, color: "#10b981", icon: "✅" },
     { label: "Expiring Loans", value: expiringCount, color: "#ef4444", icon: "⏰" },
-    { label: "Closed Loans", value: allClosedLoans.length, color: "#8b5cf6", icon: "📁" }
   ];
 
   if (loading) {
@@ -103,24 +110,7 @@ const Analytics = ({ setPage }) => {
       {/* Header */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px", flexWrap: "wrap", gap: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-          <button 
-            onClick={() => setPage("home")}
-            style={{ 
-              background: "transparent", 
-              border: "1.5px solid #000", 
-              color: "#000", 
-              fontWeight: "700",
-              padding: "8px 16px", 
-              borderRadius: "8px",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              gap: "8px"
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Back
-          </button>
+
           <h2 style={{ fontSize: "28px", fontWeight: "700", color: "#111827" }}>Business Analytics</h2>
         </div>
       </div>

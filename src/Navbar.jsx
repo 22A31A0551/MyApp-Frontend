@@ -1,7 +1,7 @@
 import profileicon from "./assets/profileicon.webp";
 import { useState, useEffect, useRef } from "react";
 
-function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, setPage }) {
+function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, userPhone, setPage }) {
   const [showMenu, setShowMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -27,7 +27,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
 
   useEffect(() => {
     if (!isLoggedIn) {
-      setExpiringLoans([]); 
+      setExpiringLoans([]);
       return;
     }
 
@@ -36,7 +36,16 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
-            setExpiringLoans(data);
+            if (userRole === "admin") {
+              setExpiringLoans(data);
+            } else {
+              // Filter by phone for specific user - ensuring trimmed string comparison
+              const trimmedUserPhone = String(userPhone || "").trim();
+              const myExpiring = data.filter(loan =>
+                String(loan.phone || "").trim() === trimmedUserPhone
+              );
+              setExpiringLoans(myExpiring);
+            }
           }
         })
         .catch(err => console.error(err));
@@ -187,7 +196,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                       Active Loans for "{searchQuery}"
                     </div>
                     {searchResults.map((loan, idx) => (
-                      <div key={loan._id || idx} style={{
+                      <div key={loan._id || loan.id || idx} style={{
                         padding: "12px",
                         borderBottom: idx < searchResults.length - 1 ? "1px solid rgba(0,0,0,0.1)" : "none",
                         display: "flex",
@@ -237,8 +246,8 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
           {isLoggedIn ? "Dashboard" : "Login"}
         </button>
 
-        {/* 🔔 Notifications (ADMIN ONLY) */}
-        {isLoggedIn && userRole === "admin" && (
+        {/* 🔔 Notifications */}
+        {isLoggedIn && (
           <div
             ref={notificationRef}
             style={{ position: "relative", display: "flex", alignItems: "center", color: "#ffffff" }}
@@ -305,7 +314,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                   <div style={{ padding: "8px" }}>
                     {expiringLoans.length > 0 ? (
                       expiringLoans.slice(0, 3).map((loan, idx) => (
-                        <div key={loan._id || idx} style={{
+                        <div key={loan._id || loan.id || idx} style={{
                           padding: "12px",
                           borderRadius: "10px",
                           marginBottom: "4px",

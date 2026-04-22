@@ -24,20 +24,23 @@ const Footer = () => {
       }}></div>
 
       <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px", position: "relative", zIndex: 1 }}>
-        
+
         {/* Left Side: Brand & Caption */}
         <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          <h3 style={{ 
-            fontSize: "24px", 
-            margin: 0, 
-            fontWeight: "900", 
+          <h3 style={{
+            fontSize: "24px",
+            margin: 0,
+            fontWeight: "900",
             color: "#fff",
             letterSpacing: "-1px"
           }}>
-            Srinu Banker's
+            Srinu Bankers
           </h3>
           <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "14px", lineHeight: "1.7", margin: 0, fontWeight: "500" }}>
             The gold standard in secure financing. Leveraging deep expertise and cutting-edge valuation precision since 1998.
+          </p>
+          <p style={{ color: "#fff", fontSize: "16px", fontWeight: "700", margin: "5px 0 0 0" }}>
+            📞 +91 9123456780
           </p>
           <div style={{ display: "flex", gap: "12px", marginTop: "10px" }}>
             {[
@@ -45,7 +48,7 @@ const Footer = () => {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>,
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z"></path></svg>
             ].map((icon, idx) => (
-              <div key={idx} className="social-icon" style={{...socialIconStyle, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)"}}>
+              <div key={idx} className="social-icon" style={{ ...socialIconStyle, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}>
                 {icon}
               </div>
             ))}
@@ -57,15 +60,15 @@ const Footer = () => {
           <h4 style={{ fontSize: "15px", margin: 0, fontWeight: "800", color: "#fff", textTransform: "uppercase", letterSpacing: "1px" }}>Market Insights</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
             <a href="https://www.kitco.com" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-              <span style={iconBoxStyle("#6366f1")}>📈</span> 
+              <span style={iconBoxStyle("#6366f1")}>📈</span>
               <span>Global Spot Market</span>
             </a>
             <a href="https://goldprice.org" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-              <span style={iconBoxStyle("#10b981")}>💰</span> 
+              <span style={iconBoxStyle("#10b981")}>💰</span>
               <span>Live Appraisal Rates</span>
             </a>
             <a href="https://www.gold.org" target="_blank" rel="noopener noreferrer" style={linkStyle}>
-              <span style={iconBoxStyle("#8b5cf6")}>🌍</span> 
+              <span style={iconBoxStyle("#8b5cf6")}>🌍</span>
               <span>World Gold Council</span>
             </a>
           </div>
@@ -76,9 +79,9 @@ const Footer = () => {
           <h4 style={{ fontSize: "15px", margin: 0, fontWeight: "800", color: "#fff", textTransform: "uppercase", letterSpacing: "1px" }}>Intelligence Digest</h4>
           <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px", margin: 0, fontWeight: "500" }}>Subscribe for exclusive market analysis and asset protection tips.</p>
           <form onSubmit={(e) => e.preventDefault()} style={{ display: "flex", gap: "10px", marginTop: "5px" }}>
-            <input 
-              type="email" 
-              placeholder="Analysis destination (email)" 
+            <input
+              type="email"
+              placeholder="Analysis destination (email)"
               required
               style={{
                 padding: "12px 16px",
@@ -92,7 +95,7 @@ const Footer = () => {
                 fontWeight: "600"
               }}
             />
-            <button 
+            <button
               type="submit"
               className="btn-primary"
               style={{
@@ -107,14 +110,14 @@ const Footer = () => {
         </div>
 
       </div>
-      
+
       {/* Bottom Copyright */}
-      <div style={{ 
-        maxWidth: "1200px", 
-        margin: "40px auto 0", 
-        fontSize: "13px", 
-        color: "rgba(255,255,255,0.5)", 
-        borderTop: "1px solid rgba(255,255,255,0.1)", 
+      <div style={{
+        maxWidth: "1200px",
+        margin: "40px auto 0",
+        fontSize: "13px",
+        color: "rgba(255,255,255,0.5)",
+        borderTop: "1px solid rgba(255,255,255,0.1)",
         paddingTop: "25px",
         display: "flex",
         justifyContent: "space-between",
@@ -123,7 +126,7 @@ const Footer = () => {
         position: "relative",
         zIndex: 1
       }}>
-        <span>© {new Date().getFullYear()} Sreenu Banker's Ledger • Secured Node</span>
+        <span>© {new Date().getFullYear()} Srinu Bankers Ledger • Secured Node</span>
         <div style={{ display: "flex", gap: "20px" }}>
           <span style={{ cursor: "pointer", opacity: 0.8 }}>Privacy Protocol</span>
           <span style={{ cursor: "pointer", opacity: 0.8 }}>Asset Terms</span>
