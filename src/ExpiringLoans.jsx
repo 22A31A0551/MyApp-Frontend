@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function ExpiringLoans() {
+function ExpiringLoans({ userRole, userPhone }) {
   const [loans, setLoans] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sentStatus, setSentStatus] = useState(() => {
@@ -12,36 +12,37 @@ function ExpiringLoans() {
     fetch("http://localhost:8080/api/loans/expiring")
       .then(res => res.json())
       .then(data => {
-        if(Array.isArray(data)) setLoans(data);
+        if (Array.isArray(data)) {
+          if (userRole === "admin") {
+            setLoans(data);
+          } else {
+            // Filter only for this customer
+            const trimmedPhone = String(userPhone || "").trim();
+            const filtered = data.filter(loan => String(loan.phone || "").trim() === trimmedPhone);
+            setLoans(filtered);
+          }
+        }
         setLoading(false);
       })
       .catch(err => {
         console.error(err);
         setLoading(false);
       });
-  }, []);
+  }, [userRole, userPhone]);
 
-  // FINAL REMINDER FUNCTION (backend call)
+  // FINAL REMINDER FUNCTION (backend call) - Admin Only
   const handleSendReminder = async (loan) => {
+    if (userRole !== "admin") return;
     try {
-      const id = loan._id || loan.id; // ✅ FIXED: MongoDB uses _id instead of id
-
-      console.log("👉 Sending reminder for ID:", id);
-
-      const res = await fetch(
-        `http://localhost:8080/api/loans/send-reminder/${id}`
-      );
-
+      const id = loan._id || loan.id;
+      const res = await fetch(`http://localhost:8080/api/loans/send-reminder/${id}`);
       if (!res.ok) throw new Error("API failed");
-
       alert("Reminder sent successfully ✅");
-      
       setSentStatus(prev => {
         const updated = { ...prev, [id]: true };
         localStorage.setItem("sentRemindersStatus", JSON.stringify(updated));
         return updated;
       });
-
     } catch (err) {
       console.error("Reminder error:", err);
       alert("Failed to send reminder ❌");
@@ -62,7 +63,11 @@ function ExpiringLoans() {
         <h2 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "8px", color: "var(--text-main)" }}>
           Expiring Loans
         </h2>
-        <p style={{ color: "var(--text-muted)" }}>Customers requiring immediate reminders.</p>
+        <p style={{ color: "var(--text-muted)" }}>
+          {userRole === "admin" 
+            ? "Customers requiring immediate reminders." 
+            : "Your loans requiring immediate attention for repayment."}
+        </p>
       </div>
 
       {loading ? (
@@ -90,48 +95,52 @@ function ExpiringLoans() {
                     <td style={tdStyle}>{loan.phone || "N/A"}</td>
                     <td style={tdStyle}>{loan.date ? new Date(loan.date).toLocaleDateString() : "N/A"}</td>
                     <td style={tdStyle}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                        <button 
-                          onClick={() => handleSendReminder(loan)}
-                          style={{
-                            background: "var(--primary)",
-                            color: "white",
-                            border: "none",
-                            padding: "8px 16px",
-                            borderRadius: "8px",
-                            fontWeight: "600",
-                            fontSize: "13px",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "6px",
-                            transition: "var(--transition)"
-                          }}
-                        >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                          </svg>
-                          Send Reminder
-                        </button>
-                        {sentStatus[loan._id || loan.id] && (
-                          <span style={{ 
-                            color: "#10b981", 
-                            fontSize: "13px", 
-                            fontWeight: "600", 
-                            display: "flex", 
-                            alignItems: "center", 
-                            gap: "5px",
-                            animation: "fadeIn 0.3s ease-out"
-                          }}>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      {userRole === "admin" ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                          <button 
+                            onClick={() => handleSendReminder(loan)}
+                            style={{
+                              background: "var(--primary)",
+                              color: "white",
+                              border: "none",
+                              padding: "8px 16px",
+                              borderRadius: "8px",
+                              fontWeight: "600",
+                              fontSize: "13px",
+                              cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "6px",
+                              transition: "var(--transition)"
+                            }}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <line x1="22" y1="2" x2="11" y2="13"></line>
+                              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
-                            Reminder Sent
-                          </span>
-                        )}
-                      </div>
+                            Send Reminder
+                          </button>
+                          {sentStatus[loan._id || loan.id] && (
+                            <span style={{ color: "#10b981", fontSize: "13px", fontWeight: "600", display: "flex", alignItems: "center", gap: "5px" }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                              </svg>
+                              Reminder Sent
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <div style={{ 
+                          color: "#ef4444", 
+                          fontSize: "13px", 
+                          fontWeight: "800", 
+                          maxWidth: "200px",
+                          lineHeight: "1.4"
+                        }}>
+                          Contact the office for the repayment of loan immediately
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))

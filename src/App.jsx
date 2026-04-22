@@ -12,6 +12,8 @@ import Analytics from "./Analytics";
 import Transactions from "./Transactions";
 import ExpiringLoans from "./ExpiringLoans";
 import Footer from "./Footer";
+import UserDashboard from "./UserDashboard";
+import LoanStatement from "./LoanStatement";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -21,15 +23,25 @@ function App() {
   const [userRole, setUserRole] = useState(() => {
     return localStorage.getItem("userRole") || null;
   });
+  const [userPhone, setUserPhone] = useState(() => {
+    return localStorage.getItem("userPhone") || "";
+  });
   const [page, setPage] = useState("home");
+  const [selectedLoan, setSelectedLoan] = useState(null);
   const [recentTransactions, setRecentTransactions] = useState([]);
 
   useEffect(() => {
     localStorage.setItem("isLoggedIn", isLoggedIn);
     if (!isLoggedIn) {
       localStorage.removeItem("userRole");
+      localStorage.removeItem("userPhone");
+      setUserPhone("");
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    if (userPhone) localStorage.setItem("userPhone", userPhone);
+  }, [userPhone]);
 
   useEffect(() => {
     if (userRole) localStorage.setItem("userRole", userRole);
@@ -82,6 +94,7 @@ function App() {
         setIsLoggedIn={setIsLoggedIn}
         setUserRole={setUserRole}
         userRole={userRole}
+        userPhone={userPhone}
         setPage={setPage}
       />
 
@@ -102,7 +115,7 @@ function App() {
                     color: "#111827",
                     letterSpacing: "-0.5px"
                   }}>
-                    {userRole === "admin" ? "Srinu Bankers" : "User Portal"}
+                    Srinu Bankers
                   </h1>
                   <p style={{ color: "#000000", fontSize: "18px", fontWeight: "500", maxWidth: "600px", margin: "0 auto" }}>
                     {userRole === "admin"
@@ -297,26 +310,11 @@ function App() {
                     )}
                   </>
                 ) : (
-                  <div
-                    className="glass-card"
-                    style={{
-                      padding: "60px 20px",
-                      textAlign: "center",
-                      borderRadius: "24px",
-                      margin: "40px 20px",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center"
-                    }}
-                  >
-                    <div style={{ ...iconContainerStyle("#10b981"), margin: "0 auto 20px" }}>
-                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    </div>
-                    <h3 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "10px" }}>User Dashboard Coming Soon</h3>
-                    <p style={{ color: "var(--text-muted)", fontSize: "16px", maxWidth: "500px", margin: "0 auto" }}>
-                      We are creating a dedicated space for you to view your loans and process transactions. Please check back later.
-                    </p>
-                  </div>
+                  <UserDashboard 
+                    userPhone={userPhone} 
+                    setSelectedLoan={setSelectedLoan} 
+                    setPage={setPage} 
+                  />
                 )}
 
               </div>
@@ -458,7 +456,13 @@ function App() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                   Back to Dashboard
                 </button>
-                <ExpiringLoans />
+                <ExpiringLoans userRole={userRole} userPhone={userPhone} />
+              </div>
+            )}
+
+            {page === "loan-statement" && (
+              <div className="fade-in">
+                <LoanStatement loan={selectedLoan} setPage={setPage} />
               </div>
             )}
 
@@ -472,6 +476,7 @@ function App() {
           setShowLogin={setShowLogin}
           setIsLoggedIn={setIsLoggedIn}
           setUserRole={setUserRole}
+          setUserPhone={setUserPhone}
         />
       )}
       <Footer />

@@ -7,6 +7,7 @@ function LoanEntry() {
     email: "",
     address: "",
     item: "",
+    category: "Gold",
     weight: "",
     amount: "",
     interest: "",
@@ -24,7 +25,10 @@ function LoanEntry() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          createdAt: new Date().toISOString()
+        }),
       });
 
       if (response.ok) {
@@ -46,6 +50,7 @@ function LoanEntry() {
       email: "",
       address: "",
       item: "",
+      category: "Gold",
       weight: "",
       amount: "",
       interest: "",
@@ -131,7 +136,16 @@ function LoanEntry() {
 
         <div style={inputGroupStyle}>
           <label style={labelStyle}>Collateral Item</label>
-          <input name="item" value={form.item} onChange={handleChange} placeholder="Gold Ornament" style={inputStyle} />
+          <input name="item" value={form.item} onChange={handleChange} placeholder="e.g. Chain, Plate, etc." style={inputStyle} />
+        </div>
+
+        <div style={inputGroupStyle}>
+          <label style={labelStyle}>Metal Category</label>
+          <select name="category" value={form.category} onChange={handleChange} style={inputStyle}>
+            <option value="Gold">Gold 🪙</option>
+            <option value="Silver">Silver 🥈</option>
+            <option value="Other">Other 📦</option>
+          </select>
         </div>
 
         <div style={inputGroupStyle}>
