@@ -117,7 +117,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       gap: "10px"
     }}>
       {/* LEFT: Logo/Admin */}
-      <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "8px", minWidth: "50px" }}>
         <div style={{
           background: "var(--primary)",
           width: "30px",
@@ -136,8 +136,8 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       </div>
 
       {/* CENTER: Search */}
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", maxWidth: "400px", minWidth: "120px" }}>
-        {isLoggedIn && (
+      <div style={{ flex: 2, display: "flex", justifyContent: "center", maxWidth: "500px" }}>
+        {isLoggedIn && userRole === "admin" && (
           <div ref={searchRef} style={{ position: "relative", width: "100%" }}>
             <input
               type="text"
@@ -175,21 +175,20 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
             {/* Search Dropdown */}
             {showSearchDropdown && searchQuery.trim() !== "" && (
               <div className="glass" style={{
-                position: "absolute",
-                top: "100%",
+                position: window.innerWidth < 600 ? "fixed" : "absolute",
+                top: window.innerWidth < 600 ? "70px" : "100%",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "min(90vw, 400px)",
-                marginTop: "12px",
-                maxHeight: "350px",
+                width: "min(95vw, 500px)",
+                marginTop: window.innerWidth < 600 ? "0" : "12px",
+                maxHeight: "70vh",
                 overflowY: "auto",
-                borderRadius: "16px",
-                boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
-                padding: "12px",
-                zIndex: 1001,
-                background: "rgba(255, 255, 255, 0.98)",
-                backdropFilter: "blur(20px)",
-                border: "1.5px solid #000",
+                borderRadius: "20px",
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
+                padding: "15px",
+                zIndex: 2000,
+                background: "#ffffff",
+                border: "2px solid #000",
                 animation: "fadeIn 0.2s ease-out",
                 color: "#1e293b"
               }}>
@@ -251,7 +250,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       </div>
 
       {/* RIGHT: Actions */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", gap: "12px", justifyContent: "flex-end" }}>
         <button
           onClick={isLoggedIn ? undefined : () => setShowLogin(true)}
           style={{
@@ -271,7 +270,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
           {isLoggedIn ? (
             <>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-              <span className="hide-mobile">Dashboard</span>
+              <span className={userRole === "admin" ? "hide-mobile" : ""}>Dashboard</span>
             </>
           ) : "Login"}
         </button>
