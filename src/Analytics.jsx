@@ -53,7 +53,7 @@ const Analytics = ({ setPage }) => {
   // Metrics Calculation (Overall Totals)
   const allClosedLoans = loans.filter(l => l.status?.toLowerCase() === "closed");
   const allActiveLoans = loans.filter(l => l.status?.toLowerCase() !== "closed");
-  
+
   const totalLoanAmount = allActiveLoans.reduce((sum, l) => sum + (parseFloat(l.amount) || 0), 0);
   const totalLoansCount = loans.length;
   const totalActiveLoansCount = allActiveLoans.length;
@@ -116,21 +116,21 @@ const Analytics = ({ setPage }) => {
       </div>
 
       {/* KPI Cards Grid */}
-      <div style={{ 
-        display: "grid", 
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", 
-        gap: "20px", 
-        marginBottom: "40px" 
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: "20px",
+        marginBottom: "40px"
       }}>
         {stats.map((stat, idx) => (
-          <div 
-            key={idx} 
-            className="glass-card" 
-            style={{ 
-              padding: "25px", 
-              borderRadius: "20px", 
-              display: "flex", 
-              flexDirection: "column", 
+          <div
+            key={idx}
+            className="glass-card"
+            style={{
+              padding: "25px",
+              borderRadius: "20px",
+              display: "flex",
+              flexDirection: "column",
               gap: "10px",
               border: `1px solid ${stat.color}40`,
               background: `linear-gradient(135deg, rgba(255,255,255,0.7), ${stat.color}10)`
@@ -151,11 +151,11 @@ const Analytics = ({ setPage }) => {
       <div className="glass-card" style={{ padding: "30px", borderRadius: "24px", marginBottom: "40px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", flexWrap: "wrap", gap: "15px" }}>
           <h3 style={{ fontSize: "20px", fontWeight: "700", color: "#111827" }}>Monthly Business Volume</h3>
-          
+
           {/* Year Selector (Only for Graph) */}
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <label style={{ fontWeight: "700", color: "#64748b", fontSize: "14px" }}>Graph Year:</label>
-            <select 
+            <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(parseInt(e.target.value))}
               style={{
@@ -179,31 +179,31 @@ const Analytics = ({ setPage }) => {
           <ResponsiveContainer>
             <BarChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />
-              <XAxis 
-                dataKey="name" 
-                axisLine={false} 
-                tickLine={false} 
+              <XAxis
+                dataKey="name"
+                axisLine={false}
+                tickLine={false}
                 tick={{ fill: "#64748b", fontSize: 12, fontWeight: 600 }}
                 dy={10}
               />
-              <YAxis 
-                axisLine={false} 
-                tickLine={false} 
+              <YAxis
+                axisLine={false}
+                tickLine={false}
                 tick={{ fill: "#64748b", fontSize: 12, fontWeight: 600 }}
-                tickFormatter={(value) => `₹${value >= 1000 ? (value/1000).toFixed(1) + "k" : value}`}
+                tickFormatter={(value) => `₹${value >= 1000 ? (value / 1000).toFixed(1) + "k" : value}`}
               />
-              <Tooltip 
+              <Tooltip
                 cursor={{ fill: 'rgba(0,0,0,0.02)' }}
-                contentStyle={{ 
-                  borderRadius: '12px', 
-                  border: 'none', 
+                contentStyle={{
+                  borderRadius: '12px',
+                  border: 'none',
                   boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
                   padding: '12px'
                 }}
               />
-              <Bar 
-                dataKey="value" 
-                radius={[6, 6, 0, 0]} 
+              <Bar
+                dataKey="value"
+                radius={[6, 6, 0, 0]}
                 barSize={40}
               >
                 {chartData.map((entry, index) => (

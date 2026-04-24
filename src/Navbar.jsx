@@ -232,7 +232,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       {/* RIGHT: Actions */}
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
         <button
-          onClick={() => setShowLogin(true)}
+          onClick={isLoggedIn ? undefined : () => setShowLogin(true)}
           style={{
             padding: "10px 20px",
             borderRadius: "10px",
@@ -241,6 +241,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
             color: "white",
             fontSize: "14px",
             fontWeight: "600",
+            cursor: isLoggedIn ? "default" : "pointer",
           }}
         >
           {isLoggedIn ? "Dashboard" : "Login"}
