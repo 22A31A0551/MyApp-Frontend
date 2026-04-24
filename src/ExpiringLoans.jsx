@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_URL } from "./config";
 
 function ExpiringLoans({ userRole, userPhone }) {
   const [loans, setLoans] = useState([]);
@@ -9,7 +10,7 @@ function ExpiringLoans({ userRole, userPhone }) {
   });
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/loans/expiring")
+    fetch(`${API_URL}/api/loans/expiring`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -35,7 +36,7 @@ function ExpiringLoans({ userRole, userPhone }) {
     if (userRole !== "admin") return;
     try {
       const id = loan._id || loan.id;
-      const res = await fetch(`http://localhost:8080/api/loans/send-reminder/${id}`);
+      const res = await fetch(`${API_URL}/api/loans/send-reminder/${id}`);
       if (!res.ok) throw new Error("API failed");
       alert("Reminder sent successfully ✅");
       setSentStatus(prev => {

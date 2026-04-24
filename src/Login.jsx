@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL, ADMIN_EMAIL, ADMIN_PASSWORD } from "./config";
 
 function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
   const [mode, setMode] = useState("login"); // 'login' | 'register'
@@ -9,14 +10,14 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
   const handleAction = async () => {
     if (mode === "login") {
       // Check admin credentials
-      if (identifier === "admin@gmail.com" && password === "1234") {
+      if (identifier === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
         setUserRole("admin");
         setIsLoggedIn(true);
         setShowLogin(false);
       } else {
         // ✅ FIXED LOGIN API
         try {
-          const res = await fetch("http://localhost:8080/api/auth/login", {
+          const res = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ phone: identifier, password }),
@@ -49,7 +50,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
 
       // ✅ FIXED REGISTER API
       try {
-        const res = await fetch("http://localhost:8080/api/auth/register", {
+        const res = await fetch(`${API_URL}/api/auth/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone, password }),
@@ -89,11 +90,13 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
       <div
         className="glass"
         style={{
-          padding: "40px",
-          width: "400px",
+          padding: "var(--card-gap)",
+          width: "90%",
+          maxWidth: "400px",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)",
           textAlign: "center",
-          backgroundColor: "#ffffff"
+          backgroundColor: "#ffffff",
+          margin: "10px"
         }}
       >
         <div style={{ marginBottom: "25px" }}>

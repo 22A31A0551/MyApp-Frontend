@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "./config";
 import { calculateElapsedInterestMonths, calculateMonthlyInterestAmount } from "./interestUtils";
 
 function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
@@ -11,8 +12,8 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
     const fetchUserData = async () => {
       try {
         const [loansRes, expiringRes] = await Promise.all([
-          fetch("http://localhost:8080/api/loans"),
-          fetch("http://localhost:8080/api/loans/expiring")
+          fetch(`${API_URL}/api/loans`),
+          fetch(`${API_URL}/api/loans/expiring`)
         ]);
 
         const allLoans = await loansRes.json();
@@ -238,9 +239,9 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
       {/* Finance Pulse - Summary Grid */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-        gap: "20px",
-        marginBottom: "50px"
+        gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+        gap: "15px",
+        marginBottom: "var(--section-spacing)"
       }}>
         <SummaryCard
           title="Total Active Principal"
@@ -278,7 +279,12 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
       </div>
 
       {/* Main Content Grid */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 300px", gap: "40px", alignItems: "start" }}>
+      <div className="dashboard-content-grid" style={{ 
+        display: "grid", 
+        gridTemplateColumns: "1fr 300px", 
+        gap: "var(--card-gap)", 
+        alignItems: "start" 
+      }}>
 
         {/* Left: Detailed Loan Tabs */}
         <div>
@@ -299,8 +305,8 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
 
           <div style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "20px"
+            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+            gap: "var(--card-gap)"
           }}>
             {loans[activeTab].length > 0 ? (
               loans[activeTab].map(loan => renderLoanCard(loan, activeTab))

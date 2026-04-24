@@ -1,5 +1,6 @@
 import profileicon from "./assets/profileicon.webp";
 import { useState, useEffect, useRef } from "react";
+import { API_URL } from "./config";
 
 function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, userPhone, setPage }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -32,7 +33,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
     }
 
     const fetchExpiringLoans = () => {
-      fetch("http://localhost:8080/api/loans/expiring")
+      fetch(`${API_URL}/api/loans/expiring`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
@@ -62,7 +63,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       if (searchQuery.trim() !== "") {
         setIsSearching(true);
         try {
-          const res = await fetch(`http://localhost:8080/api/loans/search?name=${searchQuery}`);
+          const res = await fetch(`${API_URL}/api/loans/search?name=${searchQuery}`);
           if (res.ok) {
             const result = await res.json();
             setSearchResults(Array.isArray(result) ? result : []);
@@ -105,36 +106,37 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       height: "60px",
       display: "flex",
       alignItems: "center",
-      padding: "0 30px",
+      padding: "0 15px",
       zIndex: 1000,
       justifyContent: "space-between",
       boxShadow: "0 4px 20px rgba(0, 0, 0, 0.15)",
       backgroundColor: "#311b5e",
       color: "#ffffff",
       borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-      boxSizing: "border-box"
+      boxSizing: "border-box",
+      gap: "10px"
     }}>
       {/* LEFT: Logo/Admin */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "8px", flexShrink: 0 }}>
         <div style={{
           background: "var(--primary)",
-          width: "35px",
-          height: "35px",
-          borderRadius: "10px",
+          width: "30px",
+          height: "30px",
+          borderRadius: "8px",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           fontWeight: "bold",
-          fontSize: "18px",
-          border: "1.5px solid #000"
+          fontSize: "16px",
+          border: "1px solid #000"
         }}>S</div>
-        <span style={{ fontSize: "18px", fontWeight: "600", letterSpacing: "0.5px" }}>
-          Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"} <span style={{ opacity: 0.8 }}>👋</span>
+        <span style={{ fontSize: "14px", fontWeight: "600", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>
+          Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"}
         </span>
       </div>
 
       {/* CENTER: Search */}
-      <div style={{ flex: 1, display: "flex", justifyContent: "center", maxWidth: "340px" }}>
+      <div style={{ flex: 1, display: "flex", justifyContent: "center", maxWidth: "400px", minWidth: "120px" }}>
         {isLoggedIn && (
           <div ref={searchRef} style={{ position: "relative", width: "100%" }}>
             <input
@@ -230,7 +232,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       </div>
 
       {/* RIGHT: Actions */}
-      <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
         <button
           onClick={isLoggedIn ? undefined : () => setShowLogin(true)}
           style={{

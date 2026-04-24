@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "./config";
 
 function ClosedLoans() {
   const [data, setData] = useState([]);
@@ -8,7 +9,7 @@ function ClosedLoans() {
   const fetchClosedLoans = async () => {
     try {
       // Assuming GET /api/loans returns all loans
-      const res = await fetch(`http://localhost:8080/api/loans`);
+      const res = await fetch(`${API_URL}/api/loans`);
       if (res.ok) {
         const result = await res.json();
         // Filter loans with status 'Closed'

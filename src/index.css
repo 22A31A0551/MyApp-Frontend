@@ -111,3 +111,81 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.3);
 }
+
+/* Responsive Utilities */
+:root {
+  --app-max-width: 1200px;
+  --section-spacing: 60px;
+  --card-gap: 25px;
+  --main-padding: 120px 20px 40px;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --section-spacing: 40px;
+    --card-gap: 20px;
+  }
+}
+
+.hero-title {
+  font-size: 48px;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-content-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --section-spacing: 30px;
+    --main-padding: 100px 15px 40px;
+  }
+  
+  main {
+    padding-top: 100px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  h1 {
+    font-size: 32px !important;
+  }
+  
+  .glass-card {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-spacing: 20px;
+    --main-padding: 80px 10px 40px;
+  }
+
+  h1 {
+    font-size: 28px !important;
+  }
+  
+  p {
+    font-size: 14px !important;
+  }
+  
+  .glass-card {
+    padding: 15px !important;
+  }
+}
+
