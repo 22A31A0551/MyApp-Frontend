@@ -160,6 +160,9 @@ button {
     grid-template-columns: 1fr !important;
     gap: 15px !important;
   }
+  .hide-mobile {
+    display: none !important;
+  }
   
   .glass {
     padding: 20px !important;

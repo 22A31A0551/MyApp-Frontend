@@ -130,7 +130,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
           fontSize: "16px",
           border: "1px solid #000"
         }}>S</div>
-        <span style={{ fontSize: "14px", fontWeight: "600", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>
+        <span className="hide-mobile" style={{ fontSize: "14px", fontWeight: "600", letterSpacing: "0.5px", whiteSpace: "nowrap" }}>
           Hi, {isLoggedIn ? (userRole === "admin" ? "Admin" : "User") : "Guest"}
         </span>
       </div>
@@ -154,12 +154,13 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                 width: "100%",
                 paddingTop: "8px",
                 paddingBottom: "8px",
-                paddingLeft: "40px",
-                paddingRight: "16px",
+                paddingLeft: "32px",
+                paddingRight: "10px",
                 background: "#ffffff",
-                border: "1px solid #e2e8f0",
+                border: "1.5px solid #000",
                 borderRadius: "8px",
                 color: "#0f172a",
+                fontSize: "13px",
                 boxShadow: "inset 0 1px 3px rgba(0,0,0,0.05)"
               }}
             />
@@ -176,8 +177,9 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
               <div className="glass" style={{
                 position: "absolute",
                 top: "100%",
-                left: 0,
-                right: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "min(90vw, 400px)",
                 marginTop: "12px",
                 maxHeight: "350px",
                 overflowY: "auto",
@@ -185,7 +187,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                 boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
                 padding: "12px",
                 zIndex: 1001,
-                background: "rgba(255, 255, 255, 0.95)",
+                background: "rgba(255, 255, 255, 0.98)",
                 backdropFilter: "blur(20px)",
                 border: "1.5px solid #000",
                 animation: "fadeIn 0.2s ease-out",
@@ -226,13 +228,13 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                         setSearchQuery("");
                         setShowSearchDropdown(false);
                       }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                          <span style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}>{loan.name}</span>
-                          <span style={{ color: "#10b981", fontWeight: "800", fontSize: "14px" }}>₹{loan.amount}</span>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                          <span style={{ fontWeight: "700", color: "#000000", fontSize: "15px", lineHeight: "1.3" }}>{loan.name}</span>
+                          <span style={{ color: "#10b981", fontWeight: "800", fontSize: "14px", whiteSpace: "nowrap" }}>₹{loan.amount}</span>
                         </div>
-                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "13px", color: "#1e293b" }}>
+                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", fontSize: "12px", color: "#64748b", gap: "4px" }}>
                           <span>Item: {loan.item}</span>
-                          <span>Phone: {loan.phone}</span>
+                          <span style={{ fontWeight: "600" }}>Phone: {loan.phone}</span>
                         </div>
                       </div>
                     ))}
@@ -253,17 +255,25 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
         <button
           onClick={isLoggedIn ? undefined : () => setShowLogin(true)}
           style={{
-            padding: "10px 20px",
+            padding: "10px 15px",
             borderRadius: "10px",
             border: "1px solid rgba(255,255,255,0.2)",
             background: isLoggedIn ? "rgba(255,255,255,0.1)" : "var(--primary)",
             color: "white",
-            fontSize: "14px",
+            fontSize: "13px",
             fontWeight: "600",
             cursor: isLoggedIn ? "default" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "5px"
           }}
         >
-          {isLoggedIn ? "Dashboard" : "Login"}
+          {isLoggedIn ? (
+            <>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+              <span className="hide-mobile">Dashboard</span>
+            </>
+          ) : "Login"}
         </button>
 
         {/* 🔔 Notifications */}
