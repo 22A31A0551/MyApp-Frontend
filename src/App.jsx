@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "./config";
 import Navbar from "./Navbar";
 
 import LoanEntry from "./LoanEntry";
@@ -50,7 +51,7 @@ function App() {
   useEffect(() => {
     const fetchRecent = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/loans");
+        const res = await fetch(`${API_URL}/api/loans`);
         const loans = await res.json();
         if (Array.isArray(loans)) {
           const list = [];
@@ -98,7 +99,13 @@ function App() {
         setPage={setPage}
       />
 
-      <main style={{ paddingTop: "120px", paddingBottom: "40px", paddingLeft: "20px", paddingRight: "20px" }}>
+      <main style={{ 
+        paddingTop: "var(--section-spacing)", 
+        paddingBottom: "40px", 
+        paddingLeft: "20px", 
+        paddingRight: "20px",
+        marginTop: "60px"
+      }}>
         {!isLoggedIn ? (
           <Landing />
         ) : (
@@ -107,9 +114,8 @@ function App() {
               <div className="fade-in" style={{ maxWidth: "1200px", margin: "0 auto" }}>
 
                 {/* Hero Section */}
-                <section style={{ textAlign: "center", marginBottom: "60px" }}>
-                  <h1 style={{
-                    fontSize: "48px",
+                <section style={{ textAlign: "center", marginBottom: "var(--section-spacing)" }}>
+                  <h1 className="hero-title" style={{
                     fontWeight: "800",
                     marginBottom: "16px",
                     color: "#111827",
@@ -117,7 +123,14 @@ function App() {
                   }}>
                     Srinu Bankers
                   </h1>
-                  <p style={{ color: "#000000", fontSize: "18px", fontWeight: "500", maxWidth: "600px", margin: "0 auto" }}>
+                  <p style={{ 
+                    color: "#000000", 
+                    fontSize: "1.1rem", 
+                    fontWeight: "500", 
+                    maxWidth: "600px", 
+                    margin: "0 auto",
+                    padding: "0 15px" 
+                  }}>
                     {userRole === "admin"
                       ? "Securely manage loans, track transactions, and stay on top of your finance business."
                       : "View your active loans, track payments, and securely process your transactions."}
@@ -130,9 +143,9 @@ function App() {
                     {/* Quick Actions Grid */}
                     <div style={{
                       display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-                      gap: "25px",
-                      padding: "0 20px"
+                      gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                      gap: "var(--card-gap)",
+                      padding: "0 10px"
                     }}>
                       {/* Loan Entry Card */}
                       <div

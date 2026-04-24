@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_URL } from "./config";
 
 function LoanRepayment() {
   const [name, setName] = useState("");
@@ -8,7 +9,7 @@ function LoanRepayment() {
 
   const searchLoans = async () => {
     try {
-      const res = await fetch(`http://localhost:8080/api/loans/search?name=${name}`);
+      const res = await fetch(`${API_URL}/api/loans/search?name=${name}`);
       const result = await res.json();
       if (result && result.length > 0) {
         setLoans(result);
@@ -59,7 +60,7 @@ function LoanRepayment() {
 
       // ✅ FIXED ENDPOINT
       const response = await fetch(
-        `http://localhost:8080/api/loans/close/${selectedLoan.id}`,
+        `${API_URL}/api/loans/close/${selectedLoan.id}`,
         {
           method: "PUT",
           headers: {

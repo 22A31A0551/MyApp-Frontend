@@ -4,8 +4,7 @@ function Landing() {
   return (
     <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "40px 20px" }}>
       <section className="fade-in" style={{ textAlign: "center", marginBottom: "60px" }}>
-        <h1 style={{ 
-          fontSize: "48px", 
+        <h1 className="hero-title" style={{ 
           fontWeight: "800", 
           marginBottom: "16px",
           color: "#111827",
@@ -20,9 +19,9 @@ function Landing() {
 
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-        gap: "40px",
-        padding: "0 20px"
+        gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+        gap: "var(--card-gap)",
+        padding: "0 10px"
       }}>
         {/* GOLD CARD */}
         <div className="glass-card fade-in" style={{
