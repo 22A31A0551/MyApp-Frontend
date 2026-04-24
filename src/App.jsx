@@ -32,6 +32,7 @@ function App() {
   const [recentTransactions, setRecentTransactions] = useState([]);
 
   useEffect(() => {
+    document.title = "Srinu Bankers";
     localStorage.setItem("isLoggedIn", isLoggedIn);
     if (!isLoggedIn) {
       localStorage.removeItem("userRole");
