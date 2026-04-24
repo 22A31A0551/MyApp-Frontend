@@ -176,6 +176,19 @@ button {
   .analytics-chart-container {
     height: 300px !important;
   }
+  
+  .statement-card {
+    padding: 20px !important;
+    border-radius: 20px !important;
+  }
+
+  .repayment-card {
+    padding: 20px !important;
+  }
+}
+
+.repayment-card {
+  padding: 40px;
 }
 
 @media (max-width: 768px) {

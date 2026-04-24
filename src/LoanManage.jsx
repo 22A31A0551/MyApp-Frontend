@@ -94,7 +94,7 @@ function LoanManage() {
         <button onClick={search} style={btnStyle("#f59e0b")}>Search</button>
       </div>
 
-      <div className="glass" style={{ padding: "var(--card-padding)", borderRadius: "16px", overflowX: "auto" }}>
+      <div className="glass" style={{ padding: "20px", borderRadius: "16px", overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "600px" }}>
           <thead>
             <tr style={{ color: "var(--text-muted)", fontSize: "14px", borderBottom: "1px solid var(--glass-border)" }}>

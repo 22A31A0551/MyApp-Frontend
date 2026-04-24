@@ -99,11 +99,10 @@ function LoanRepayment() {
 
   return (
     <div
-      className="glass"
+      className="glass repayment-card"
       style={{
         maxWidth: "900px",
         margin: "0 auto",
-        padding: "var(--card-padding)",
         boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
       }}
     >
