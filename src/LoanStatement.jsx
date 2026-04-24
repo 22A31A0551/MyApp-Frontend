@@ -46,31 +46,33 @@ function LoanStatement({ loan, setPage }) {
         position: "relative"
       }}>
         {/* Header */}
-        <header style={{ 
+        <header className="mobile-stack" style={{ 
           borderBottom: "2px solid #f1f5f9", 
-          paddingBottom: "30px", 
-          marginBottom: "40px",
+          paddingBottom: "20px", 
+          marginBottom: "30px",
           display: "flex",
           justifyContent: "space-between",
-          alignItems: "flex-start"
+          alignItems: "flex-start",
+          gap: "15px"
         }}>
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "15px" }}>
-              <div style={{ width: "15px", height: "15px", borderRadius: "50%", background: "#6366f1" }}></div>
-              <span style={{ fontSize: "14px", fontWeight: "800", textTransform: "uppercase", color: "#6366f1", letterSpacing: "1px" }}>Official Loan Statement</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+              <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#6366f1" }}></div>
+              <span style={{ fontSize: "12px", fontWeight: "800", textTransform: "uppercase", color: "#6366f1", letterSpacing: "1px" }}>Official Loan Statement</span>
             </div>
-            <h1 style={{ fontSize: "36px", fontWeight: "900", color: "#111827", margin: 0 }}>{loan.item || "Gold Loan"}</h1>
-            <p style={{ color: "#64748b", fontSize: "16px", marginTop: "5px", fontWeight: "600" }}>Account Reference: {loan.id}</p>
+            <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#111827", margin: 0 }}>{loan.item || "Gold Loan"}</h1>
+            <p style={{ color: "#64748b", fontSize: "14px", marginTop: "5px", fontWeight: "600" }}>Ref: {loan.id}</p>
           </div>
-          <div style={{ textAlign: "right" }}>
+          <div>
             <div style={{ 
-              padding: "6px 16px", 
+              padding: "4px 12px", 
               borderRadius: "50px", 
               background: loan.status === "closed" ? "#f1f5f9" : "#ecfdf5", 
               color: loan.status === "closed" ? "#64748b" : "#10b981",
               fontWeight: "800",
-              fontSize: "13px",
-              border: `1.5px solid ${loan.status === "closed" ? "#64748b" : "#10b981"}`
+              fontSize: "11px",
+              border: `1.5px solid ${loan.status === "closed" ? "#64748b" : "#10b981"}`,
+              whiteSpace: "nowrap"
             }}>
               {loan.status?.toUpperCase() || "ACTIVE"}
             </div>

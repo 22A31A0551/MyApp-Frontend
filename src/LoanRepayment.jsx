@@ -103,7 +103,7 @@ function LoanRepayment() {
       style={{
         maxWidth: "900px",
         margin: "0 auto",
-        padding: "40px",
+        padding: "var(--card-padding)",
         boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
       }}
     >
@@ -129,8 +129,8 @@ function LoanRepayment() {
           </div>
 
           {loans.length > 0 && (
-            <div style={{ background: "var(--surface-color)", borderRadius: "12px", border: "1px solid var(--glass-border)", overflowX: "auto" }}>
-              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <div className="glass" style={{ borderRadius: "12px", border: "1px solid var(--glass-border)", overflowX: "auto" }}>
+              <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "600px" }}>
                 <thead>
                   <tr style={{ background: "rgba(255, 255, 255, 0.05)", borderBottom: "1px solid var(--glass-border)" }}>
                     <th style={thStyle}>Date</th>
