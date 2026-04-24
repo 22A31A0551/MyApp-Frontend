@@ -24,9 +24,9 @@ function CustomerProfile({ setPage }) {
         {filteredCustomers.map(customer => {
           const customerLoans = DUMMY_LOANS.filter(l => l.customerId === customer.id);
           return (
-            <div key={customer.id} className="glass" style={{ padding: "30px", borderRadius: "16px" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1px solid var(--glass-border)", paddingBottom: "20px", marginBottom: "20px" }}>
-                <div style={{ display: "flex", gap: "20px" }}>
+            <div key={customer.id} className="glass" style={{ padding: "var(--card-padding)", borderRadius: "16px" }}>
+              <div className="mobile-stack" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1px solid var(--glass-border)", paddingBottom: "20px", marginBottom: "20px", gap: "20px" }}>
+                <div style={{ display: "flex", gap: "20px", alignItems: "center" }}>
                   <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "var(--surface-color)", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "30px" }}>
                     👤
                   </div>

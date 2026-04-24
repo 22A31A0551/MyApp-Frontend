@@ -117,10 +117,7 @@ const Analytics = ({ setPage }) => {
       </div>
 
       {/* KPI Cards Grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-        gap: "20px",
+      <div className="responsive-grid" style={{
         marginBottom: "40px"
       }}>
         {stats.map((stat, idx) => (
@@ -176,7 +173,7 @@ const Analytics = ({ setPage }) => {
             </select>
           </div>
         </div>
-        <div style={{ width: "100%", height: 400 }}>
+        <div className="analytics-chart-container" style={{ width: "100%", height: 400 }}>
           <ResponsiveContainer>
             <BarChart data={chartData} margin={{ top: 10, right: 30, left: 10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(0,0,0,0.05)" />

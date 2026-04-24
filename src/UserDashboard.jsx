@@ -237,10 +237,7 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
       </div>
 
       {/* Finance Pulse - Summary Grid */}
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-        gap: "15px",
+      <div className="responsive-grid" style={{
         marginBottom: "var(--section-spacing)"
       }}>
         <SummaryCard
@@ -279,18 +276,13 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
       </div>
 
       {/* Main Content Grid */}
-      <div className="dashboard-content-grid" style={{ 
-        display: "grid", 
-        gridTemplateColumns: "1fr 300px", 
-        gap: "var(--card-gap)", 
-        alignItems: "start" 
-      }}>
+      <div className="dashboard-content-grid">
 
         {/* Left: Detailed Loan Tabs */}
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
             <h3 style={{ fontSize: "22px", fontWeight: "800", color: "#111827" }}>Your Loan Records</h3>
-            <div style={{
+            <div className="mobile-stack" style={{
               display: "flex",
               gap: "8px",
               background: "#f1f5f9",

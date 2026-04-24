@@ -149,6 +149,32 @@ button {
   }
 }
 
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 600px) {
+  .responsive-grid {
+    grid-template-columns: 1fr !important;
+    gap: 15px !important;
+  }
+  
+  .glass {
+    padding: 20px !important;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  
+  .analytics-chart-container {
+    height: 300px !important;
+  }
+}
+
 @media (max-width: 768px) {
   :root {
     --section-spacing: 30px;

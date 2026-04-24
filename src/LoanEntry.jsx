@@ -104,7 +104,7 @@ function LoanEntry() {
         <p style={{ color: "var(--text-muted)" }}>Fill in the details below to complete the loan entry.</p>
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "25px" }}>
+      <div className="responsive-grid">
         {/* Customer Details */}
         <div style={{ gridColumn: "1 / -1" }}>
           <h3 style={sectionTitleStyle}>Customer Information</h3>
@@ -170,10 +170,10 @@ function LoanEntry() {
         </div>
       </div>
 
-      <div style={{
+      <div className="mobile-stack" style={{
         display: "flex",
         justifyContent: "center",
-        gap: "20px",
+        gap: "15px",
         marginTop: "40px",
         paddingTop: "30px",
         borderTop: "1px solid var(--glass-border)"

@@ -71,7 +71,7 @@ const Transactions = ({ setPage }) => {
   return (
     <div className="fade-in" style={{ maxWidth: "1000px", margin: "0 auto", padding: "20px" }}>
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px", flexWrap: "wrap", gap: "20px" }}>
+      <div className="mobile-stack" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "30px", gap: "20px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
           <h2 style={{ fontSize: "28px", fontWeight: "800", color: "#111827" }}>Transaction History</h2>
         </div>
@@ -93,7 +93,7 @@ const Transactions = ({ setPage }) => {
         </div>
       </div>
 
-      <div className="glass-card" style={{ borderRadius: "24px", overflow: "hidden" }}>
+      <div className="glass-card" style={{ borderRadius: "24px", overflowX: "auto" }}>
         <table style={{ width: "100%", borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ background: "rgba(0,0,0,0.03)", borderBottom: "1.5px solid #000" }}>

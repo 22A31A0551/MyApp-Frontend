@@ -112,7 +112,7 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright */}
-      <div style={{
+      <div className="mobile-stack" style={{
         maxWidth: "1200px",
         margin: "40px auto 0",
         fontSize: "13px",
@@ -122,6 +122,7 @@ const Footer = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
+        gap: "15px",
         fontWeight: "600",
         position: "relative",
         zIndex: 1

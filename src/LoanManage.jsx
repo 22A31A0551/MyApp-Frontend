@@ -80,7 +80,7 @@ function LoanManage() {
         <p style={{ color: "var(--text-muted)" }}>Edit existing records or delete canceled loans.</p>
       </div>
 
-      <div style={{ display: "flex", gap: "15px", marginBottom: "30px", justifyContent: "center", alignItems: "center" }}>
+      <div className="mobile-stack" style={{ display: "flex", gap: "15px", marginBottom: "30px", justifyContent: "center", alignItems: "center" }}>
         <input
           placeholder="Enter customer name..."
           value={name}
@@ -128,7 +128,7 @@ function LoanManage() {
 
       {editingId && (
         <div style={modalOverlayStyle}>
-          <div style={modalStyle}>
+          <div style={{...modalStyle, width: "90%", margin: "20px"}}>
             <h3 style={{ marginTop: 0, marginBottom: "20px", fontSize: "20px", fontWeight: "600", color: "#000" }}>Edit Loan Record</h3>
             
             <div style={formGroupStyle}>
