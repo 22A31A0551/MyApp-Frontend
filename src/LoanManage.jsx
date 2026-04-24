@@ -94,28 +94,30 @@ function LoanManage() {
         <button onClick={search} style={btnStyle("#f59e0b")}>Search</button>
       </div>
 
-      <div style={{ background: "var(--surface-color)", borderRadius: "12px", border: "1px solid var(--glass-border)", overflowX: "auto" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+      <div className="glass" style={{ padding: "var(--card-padding)", borderRadius: "16px", overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "600px" }}>
           <thead>
-            <tr style={{ background: "rgba(255, 255, 255, 0.05)", borderBottom: "1px solid var(--glass-border)" }}>
-              <th style={thStyle}>Name</th>
-              <th style={thStyle}>Phone</th>
-              <th style={thStyle}>Amount</th>
-              <th style={thStyle}>Item</th>
-              <th style={thStyle}>Actions</th>
+            <tr style={{ color: "var(--text-muted)", fontSize: "14px", borderBottom: "1px solid var(--glass-border)" }}>
+              <th style={{ padding: "15px 10px" }}>NAME</th>
+              <th style={{ padding: "15px 10px" }}>PHONE</th>
+              <th style={{ padding: "15px 10px" }}>AMOUNT</th>
+              <th style={{ padding: "15px 10px" }}>ITEM</th>
+              <th style={{ padding: "15px 10px" }}>ACTIONS</th>
             </tr>
           </thead>
           <tbody>
             {data.length > 0 ? (
               data.map((loan) => (
-                <tr key={loan._id || loan.id} style={{ borderBottom: "1px solid var(--glass-border)" }}>
-                  <td style={tdStyle}>{loan.name}</td>
-                  <td style={tdStyle}>{loan.phone}</td>
-                  <td style={tdStyle}>₹{loan.amount}</td>
-                  <td style={tdStyle}>{loan.item}</td>
-                  <td style={tdStyle}>
-                    <button onClick={() => handleEdit(loan)} style={{...actionBtnStyle, background: "#3b82f6"}}>Edit</button>
-                    <button onClick={() => handleDelete(loan._id || loan.id)} style={{...actionBtnStyle, background: "#ef4444", marginLeft: "10px"}}>Delete</button>
+                <tr key={loan._id || loan.id} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+                  <td style={{ padding: "15px 10px", color: "var(--text-main)", fontWeight: "600" }}>{loan.name}</td>
+                  <td style={{ padding: "15px 10px", color: "var(--text-main)", fontWeight: "600" }}>{loan.phone}</td>
+                  <td style={{ padding: "15px 10px", color: "var(--text-main)", fontWeight: "800" }}>₹{loan.amount}</td>
+                  <td style={{ padding: "15px 10px", color: "var(--text-main)" }}>{loan.item}</td>
+                  <td style={{ padding: "15px 10px" }}>
+                    <div style={{ display: "flex", gap: "8px" }}>
+                      <button onClick={() => handleEdit(loan)} style={{ padding: "6px 12px", background: "#3b82f6", color: "#fff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}>Edit</button>
+                      <button onClick={() => handleDelete(loan._id || loan.id)} style={{ padding: "6px 12px", background: "#ef4444", color: "#fff", border: "none", borderRadius: "6px", fontSize: "12px", fontWeight: "700" }}>Delete</button>
+                    </div>
                   </td>
                 </tr>
               ))
