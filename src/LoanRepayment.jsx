@@ -114,7 +114,7 @@ function LoanRepayment() {
 
       {!selectedLoan ? (
         <>
-          <div style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "30px" }}>
+          <div className="mobile-stack" style={{ display: "flex", gap: "15px", justifyContent: "center", marginBottom: "30px" }}>
             <input
               placeholder="Enter customer name..."
               value={name}
@@ -177,7 +177,7 @@ function LoanRepayment() {
               </button>
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginBottom: "20px" }}>
+            <div className="responsive-grid" style={{ marginBottom: "20px" }}>
               <div><span style={labelStyle}>Customer:</span> <span style={valStyle}>{selectedLoan.name}</span></div>
               <div><span style={labelStyle}>Item:</span> <span style={valStyle}>{selectedLoan.item}</span></div>
               <div><span style={labelStyle}>Loan Date:</span> <span style={valStyle}>{selectedLoan.date || "N/A"}</span></div>
@@ -214,7 +214,7 @@ function LoanRepayment() {
               }}
             />
 
-            <div style={{ display: "flex", gap: "15px" }}>
+            <div className="mobile-stack" style={{ display: "flex", gap: "15px" }}>
               <button onClick={handleRepay} style={{ ...btnStyle("#10b981"), flex: 1, padding: "15px", fontSize: "16px" }}>Confirm Payment</button>
               <button
                 onClick={() => {

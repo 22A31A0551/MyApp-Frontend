@@ -13,15 +13,15 @@ function GoldVault({ setPage }) {
   return (
     <div className="fade-in" style={{ maxWidth: "1000px", margin: "0 auto" }}>
       <BackButton setPage={setPage} />
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px" }}>
+      <div className="mobile-stack" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "25px", gap: "15px" }}>
         <h2 style={{ fontSize: "28px", fontWeight: "700" }}>Gold Vault Inventory</h2>
-        <div style={{ color: "#eab308", background: "rgba(234, 179, 8, 0.1)", padding: "10px 15px", borderRadius: "10px", fontWeight: "600" }}>
+        <div style={{ color: "#eab308", background: "rgba(234, 179, 8, 0.1)", padding: "10px 15px", borderRadius: "10px", fontWeight: "600", textAlign: "center" }}>
            Total Weight: {DUMMY_VAULT.reduce((acc, curr) => acc + curr.weight, 0)} g
         </div>
       </div>
 
-      <div className="glass" style={{ padding: "30px", borderRadius: "16px" }}>
-        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+      <div className="glass" style={{ padding: "var(--card-padding)", borderRadius: "16px", overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left", minWidth: "600px" }}>
           <thead>
             <tr style={{ color: "var(--text-muted)", fontSize: "14px", borderBottom: "1px solid var(--glass-border)" }}>
               <th style={{ padding: "15px 10px" }}>Item ID</th>

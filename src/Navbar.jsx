@@ -2,7 +2,7 @@ import profileicon from "./assets/profileicon.webp";
 import { useState, useEffect, useRef } from "react";
 import { API_URL } from "./config";
 
-function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, userPhone, setPage }) {
+function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, userPhone, setPage, setSelectedLoan }) {
   const [showMenu, setShowMenu] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -178,17 +178,18 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                 top: "100%",
                 left: 0,
                 right: 0,
-                marginTop: "8px",
+                marginTop: "12px",
                 maxHeight: "350px",
                 overflowY: "auto",
-                borderRadius: "12px",
-                boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
-                padding: "10px",
+                borderRadius: "16px",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
+                padding: "12px",
                 zIndex: 1001,
-                background: "var(--surface-color)",
-                border: "1px solid var(--glass-border)",
+                background: "rgba(255, 255, 255, 0.95)",
+                backdropFilter: "blur(20px)",
+                border: "1.5px solid #000",
                 animation: "fadeIn 0.2s ease-out",
-                color: "#000000"
+                color: "#1e293b"
               }}>
                 {isSearching ? (
                   <div style={{ padding: "10px", textAlign: "center", color: "#000000", fontSize: "14px" }}>Searching...</div>
@@ -199,15 +200,31 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
                     </div>
                     {searchResults.map((loan, idx) => (
                       <div key={loan._id || loan.id || idx} style={{
-                        padding: "12px",
-                        borderBottom: idx < searchResults.length - 1 ? "1px solid rgba(0,0,0,0.1)" : "none",
+                        padding: "14px",
+                        borderBottom: idx < searchResults.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none",
                         display: "flex",
                         flexDirection: "column",
                         gap: "6px",
-                        background: "rgba(0,0,0,0.02)",
-                        borderRadius: "8px",
-                        marginBottom: idx < searchResults.length - 1 ? "6px" : "0",
-                        transition: "background 0.2s",
+                        background: "white",
+                        borderRadius: "10px",
+                        marginBottom: idx < searchResults.length - 1 ? "8px" : "0",
+                        transition: "all 0.2s",
+                        cursor: "pointer",
+                        border: "1px solid transparent"
+                      }}
+                      onMouseOver={(e) => { 
+                        e.currentTarget.style.background = "#f1f5f9";
+                        e.currentTarget.style.borderColor = "var(--primary)";
+                      }}
+                      onMouseOut={(e) => { 
+                        e.currentTarget.style.background = "white";
+                        e.currentTarget.style.borderColor = "transparent";
+                      }}
+                      onClick={() => {
+                        if (setSelectedLoan) setSelectedLoan(loan);
+                        setPage("loan-statement");
+                        setSearchQuery("");
+                        setShowSearchDropdown(false);
                       }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                           <span style={{ fontWeight: "700", color: "#000000", fontSize: "15px" }}>{loan.name}</span>

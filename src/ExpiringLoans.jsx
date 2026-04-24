@@ -52,11 +52,11 @@ function ExpiringLoans({ userRole, userPhone }) {
 
   return (
     <div 
-      className="glass" 
+      className="glass fade-in" 
       style={{
         maxWidth: "1000px",
         margin: "0 auto",
-        padding: "40px",
+        padding: "var(--card-padding)",
         boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
       }}
     >

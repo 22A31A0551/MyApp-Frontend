@@ -32,7 +32,7 @@ function LoanRetrieve() {
       </div>
 
       {/* Search Box */}
-      <div style={{
+      <div className="mobile-stack" style={{
         display: "flex",
         gap: "15px",
         marginBottom: "30px",

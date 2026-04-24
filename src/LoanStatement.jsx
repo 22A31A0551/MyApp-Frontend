@@ -40,7 +40,7 @@ function LoanStatement({ loan, setPage }) {
       <div style={{
         background: "#ffffff",
         borderRadius: "32px",
-        padding: "50px",
+        padding: "var(--card-padding)",
         boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
         border: "2px solid #000",
         position: "relative"
@@ -78,7 +78,7 @@ function LoanStatement({ loan, setPage }) {
         </header>
 
         {/* Content Section */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginBottom: "40px" }}>
+        <div className="responsive-grid" style={{ marginBottom: "40px" }}>
           <section>
             <h3 style={sectionTitleStyle}>Customer Details</h3>
             <div style={detailRowStyle}>

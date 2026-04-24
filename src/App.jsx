@@ -98,6 +98,7 @@ function App() {
         userRole={userRole}
         userPhone={userPhone}
         setPage={setPage}
+        setSelectedLoan={setSelectedLoan}
       />
 
       <main style={{ 

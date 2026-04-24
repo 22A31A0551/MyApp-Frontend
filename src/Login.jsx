@@ -131,7 +131,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
                 placeholder="10-digit mobile number"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                style={{ width: "100%", marginBottom: "15px" }}
+                style={{ width: "100%", marginBottom: "15px", padding: "12px", borderRadius: "8px", border: "1px solid #000" }}
               />
             </>
           ) : (
@@ -142,7 +142,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
                 placeholder="10-digit mobile number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                style={{ width: "100%", marginBottom: "15px" }}
+                style={{ width: "100%", marginBottom: "15px", padding: "12px", borderRadius: "8px", border: "1px solid #000" }}
               />
             </>
           )}
@@ -153,7 +153,7 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%" }}
+            style={{ width: "100%", padding: "12px", borderRadius: "8px", border: "1px solid #000" }}
           />
 
           <div style={{ marginTop: "15px", textAlign: "center", fontSize: "13px" }}>

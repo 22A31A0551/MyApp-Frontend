@@ -35,11 +35,11 @@ function ClosedLoans() {
 
   return (
     <div 
-      className="glass" 
+      className="glass fade-in" 
       style={{
         maxWidth: "900px",
         margin: "0 auto",
-        padding: "40px",
+        padding: "var(--card-padding)",
         boxShadow: "0 20px 40px rgba(0,0,0,0.3)"
       }}
     >
@@ -48,8 +48,8 @@ function ClosedLoans() {
         <p style={{ color: "var(--text-muted)" }}>History of successfully paid and closed accounts.</p>
       </div>
 
-      <div style={{ marginBottom: "20px", display: "flex", justifyContent: "flex-end" }}>
-        <div style={{ position: "relative", width: "100%", maxWidth: "300px" }}>
+      <div className="mobile-stack" style={{ marginBottom: "20px", display: "flex", justifyContent: "flex-end", gap: "15px" }}>
+        <div style={{ position: "relative", width: "100%", maxWidth: "400px" }}>
           <svg style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input 
             type="text" 
