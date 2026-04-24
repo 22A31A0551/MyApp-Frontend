@@ -37,33 +37,35 @@ function LoanStatement({ loan, setPage }) {
         Back to Dashboard
       </button>
 
-      <div style={{
+      <div className="statement-card glass-card"
+        style={{
         background: "#ffffff",
-        borderRadius: "32px",
-        padding: "var(--card-padding)",
+        borderRadius: "24px",
+        padding: "25px",
         boxShadow: "0 10px 25px rgba(0,0,0,0.05)",
         border: "2px solid #000",
         position: "relative"
       }}>
         {/* Header */}
-        <header className="mobile-stack" style={{ 
+        <header style={{ 
           borderBottom: "2px solid #f1f5f9", 
           paddingBottom: "20px", 
           marginBottom: "30px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-start",
+          flexWrap: "wrap",
           gap: "15px"
         }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
-              <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#6366f1" }}></div>
+          <div style={{ flex: "1 1 min-content", minWidth: "200px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }}>
+              <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#6366f1", flexShrink: 0 }}></div>
               <span style={{ fontSize: "12px", fontWeight: "800", textTransform: "uppercase", color: "#6366f1", letterSpacing: "1px" }}>Official Loan Statement</span>
             </div>
-            <h1 style={{ fontSize: "28px", fontWeight: "900", color: "#111827", margin: 0 }}>{loan.item || "Gold Loan"}</h1>
-            <p style={{ color: "#64748b", fontSize: "14px", marginTop: "5px", fontWeight: "600" }}>Ref: {loan.id}</p>
+            <h2 style={{ fontSize: "24px", fontWeight: "900", color: "#111827", margin: 0 }}>{loan.item || "Gold Loan"}</h2>
+            <p style={{ color: "#64748b", fontSize: "13px", marginTop: "4px", fontWeight: "600" }}>Ref: {loan.id}</p>
           </div>
-          <div>
+          <div style={{ alignSelf: "flex-start" }}>
             <div style={{ 
               padding: "4px 12px", 
               borderRadius: "50px", 
@@ -117,10 +119,10 @@ function LoanStatement({ loan, setPage }) {
         {/* Interest Summary Card */}
         <div style={{
           background: "#f8fafc",
-          borderRadius: "24px",
-          padding: "30px",
+          borderRadius: "20px",
+          padding: "20px",
           border: "1.5px solid #e2e8f0",
-          marginBottom: "40px"
+          marginBottom: "30px"
         }}>
           <h3 style={{ ...sectionTitleStyle, border: "none", padding: 0, marginBottom: "20px" }}>Interest Accumulation Summary</h3>
           
