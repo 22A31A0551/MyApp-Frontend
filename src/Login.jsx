@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+import { useState } from "react";
 import { API_URL, ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_PHONE } from "./config";
 import { setToken } from "./api";
 
@@ -19,7 +19,6 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
           body: JSON.stringify({ phone: identifier, password }),
         });
 
-        // If configured admin didn't exist in backend DB yet, auto-register then login to get JWT
         if (!res.ok && isConfigAdmin) {
           await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
@@ -56,11 +55,11 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
         }
       } catch (error) {
         console.error("Login Error:", error);
-        alert("Error connecting to the server. Please check your network.");
+        alert("Error connecting to the database.");
       }
     } else if (mode === "register") {
       if (phone.length < 10) {
-        alert("Please enter a valid phone number (at least 10 digits)");
+        alert("Please enter a valid phone number");
         return;
       }
       if (password.length < 4) {
