@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 function LoanRetrieve() {
   const [name, setName] = useState("");
@@ -7,7 +8,7 @@ function LoanRetrieve() {
 
   const search = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/loans/search?name=${name}`);
+      const res = await authFetch(`${API_URL}/api/loans/search?name=${name}`);
       const result = await res.json();
       setData(result);
     } catch (error) {

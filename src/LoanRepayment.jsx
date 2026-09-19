@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 function LoanRepayment() {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ function LoanRepayment() {
 
   const searchLoans = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/loans/search?name=${name}`);
+      const res = await authFetch(`${API_URL}/api/loans/search?name=${name}`);
       const result = await res.json();
       if (result && result.length > 0) {
         setLoans(result);
@@ -59,8 +60,7 @@ function LoanRepayment() {
       const todayDate = new Date().toISOString().split("T")[0];
 
       // ✅ FIXED ENDPOINT
-      const response = await fetch(
-        `${API_URL}/api/loans/close/${selectedLoan.id}`,
+      const response = await authFetch(`${API_URL}/api/loans/close/${selectedLoan.id}`,
         {
           method: "PUT",
           headers: {

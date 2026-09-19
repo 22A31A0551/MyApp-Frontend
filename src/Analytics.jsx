@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 import {
   BarChart,
   Bar,
@@ -22,8 +23,8 @@ const Analytics = ({ setPage }) => {
     const fetchData = async () => {
       try {
         const [loansRes, expiringRes] = await Promise.all([
-          fetch(`${API_URL}/api/loans`),
-          fetch(`${API_URL}/api/loans/expiring`)
+          authFetch(`${API_URL}/api/loans`),
+          authFetch(`${API_URL}/api/loans/expiring`)
         ]);
 
         const loansData = await loansRes.json();

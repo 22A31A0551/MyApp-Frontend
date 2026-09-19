@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 function LoanManage() {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ function LoanManage() {
 
   const search = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/loans/search?name=${name}`);
+      const res = await authFetch(`${API_URL}/api/loans/search?name=${name}`);
       const result = await res.json();
       setData(result);
     } catch (error) {
@@ -29,7 +30,7 @@ function LoanManage() {
 
   const handleSaveEdit = async (id) => {
     try {
-      const res = await fetch(`${API_URL}/api/loans/edit/${id}`, {
+      const res = await authFetch(`${API_URL}/api/loans/edit/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editFormData),
@@ -51,7 +52,7 @@ function LoanManage() {
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this loan record?")) {
       try {
-        const res = await fetch(`${API_URL}/api/loans/${id}`, { method: 'DELETE' });
+        const res = await authFetch(`${API_URL}/api/loans/${id}`, { method: 'DELETE' });
         if (res.ok) {
           alert(`Record deleted successfully`);
           setData(data.filter(loan => (loan._id || loan.id) !== id));

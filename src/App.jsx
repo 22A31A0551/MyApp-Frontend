@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 import Navbar from "./Navbar";
 
 import LoanEntry from "./LoanEntry";
@@ -33,6 +34,14 @@ function App() {
 
   useEffect(() => {
     document.title = "Srinu Bankers";
+
+    const handleLogout = () => {
+      setIsLoggedIn(false);
+      setUserRole(null);
+      setUserPhone("");
+    };
+    window.addEventListener("auth:logout", handleLogout);
+    return () => window.removeEventListener("auth:logout", handleLogout);
     localStorage.setItem("isLoggedIn", isLoggedIn);
     if (!isLoggedIn) {
       localStorage.removeItem("userRole");
@@ -52,7 +61,7 @@ function App() {
   useEffect(() => {
     const fetchRecent = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/loans`);
+        const res = await authFetch(`${API_URL}/api/loans`);
         const loans = await res.json();
         if (Array.isArray(loans)) {
           const list = [];
@@ -276,7 +285,7 @@ function App() {
                       </div>
                     </div>
 
-                    {/* 📜 Recent Transactions Section (ADMIN ONLY) */}
+                    {/* ðŸ“œ Recent Transactions Section (ADMIN ONLY) */}
                     {userRole === "admin" && (
                       <div style={{ marginTop: "60px", padding: "0 20px" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
@@ -285,7 +294,7 @@ function App() {
                             onClick={() => setPage("transactions")}
                             style={{ background: "transparent", border: "none", color: "var(--primary)", fontWeight: "700", cursor: "pointer", fontSize: "16px" }}
                           >
-                            View All History →
+                            View All History â†’
                           </button>
                         </div>
                         <div className="glass-card" style={{ padding: "20px", borderRadius: "24px", border: "1.5px solid #000" }}>
@@ -304,7 +313,7 @@ function App() {
                                       display: "flex", justifyContent: "center", alignItems: "center",
                                       color: t.amount < 0 ? "#ef4444" : "#10b981", border: "1px solid currentColor"
                                     }}>
-                                      {t.amount < 0 ? "↓" : "↑"}
+                                      {t.amount < 0 ? "â†“" : "â†‘"}
                                     </div>
                                     <div>
                                       <div style={{ fontWeight: "800", color: "#000" }}>{t.name}</div>
@@ -312,7 +321,7 @@ function App() {
                                     </div>
                                   </div>
                                   <div style={{ fontWeight: "800", color: t.amount < 0 ? "#ef4444" : "#10b981", fontSize: "16px" }}>
-                                    {t.amount < 0 ? "-" : "+"} ₹{Math.abs(t.amount).toLocaleString()}
+                                    {t.amount < 0 ? "-" : "+"} â‚¹{Math.abs(t.amount).toLocaleString()}
                                   </div>
                                 </div>
                               ))}
@@ -485,7 +494,7 @@ function App() {
         )}
       </main>
 
-      {/* 🔐 Login Popup */}
+      {/* ðŸ” Login Popup */}
       {showLogin && (
         <Login
           setShowLogin={setShowLogin}

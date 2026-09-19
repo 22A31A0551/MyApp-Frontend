@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 function LoanEntry() {
   const [form, setForm] = useState({
@@ -21,7 +22,7 @@ function LoanEntry() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/loans`, {
+      const response = await authFetch(`${API_URL}/api/loans`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

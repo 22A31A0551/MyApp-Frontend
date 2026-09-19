@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { API_URL, ADMIN_EMAIL, ADMIN_PASSWORD } from "./config";
+﻿import { useState } from "react";
+import { API_URL, ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_PHONE } from "./config";
+import { setToken } from "./api";
 
 function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
   const [mode, setMode] = useState("login"); // 'login' | 'register'
@@ -9,38 +10,57 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
 
   const handleAction = async () => {
     if (mode === "login") {
-      // Check admin credentials
-      if (identifier === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
-        setUserRole("admin");
-        setIsLoggedIn(true);
-        setShowLogin(false);
-      } else {
-        // ✅ FIXED LOGIN API
-        try {
-          const res = await fetch(`${API_URL}/api/auth/login`, {
+      const isConfigAdmin = (identifier === ADMIN_EMAIL || identifier === ADMIN_PHONE) && password === ADMIN_PASSWORD;
+
+      try {
+        let res = await fetch(`${API_URL}/api/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: identifier, password }),
+        });
+
+        // If configured admin didn't exist in backend DB yet, auto-register then login to get JWT
+        if (!res.ok && isConfigAdmin) {
+          await fetch(`${API_URL}/api/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ phone: identifier, password }),
           });
-
-          const data = await res.json();
-
-          if (data && data.id) {
-            setUserRole("user");
-            setUserPhone(identifier);
-            setIsLoggedIn(true);
-            setShowLogin(false);
-          } else {
-            alert("Invalid credentials ❌");
-          }
-        } catch (error) {
-          console.error("Login Error:", error);
-          alert("Error connecting to the database.");
+          res = await fetch(`${API_URL}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ phone: identifier, password }),
+          });
         }
+
+        if (!res.ok) {
+          alert("Invalid credentials ❌");
+          return;
+        }
+
+        const data = await res.json();
+
+        if (data && (data.token || data.id)) {
+          if (data.token) {
+            setToken(data.token);
+          }
+          const role = isConfigAdmin ? "admin" : "user";
+          setUserRole(role);
+          localStorage.setItem("userRole", role);
+          setUserPhone(identifier);
+          localStorage.setItem("userPhone", identifier);
+          setIsLoggedIn(true);
+          setShowLogin(false);
+        } else {
+          alert("Invalid credentials ❌");
+        }
+      } catch (error) {
+        console.error("Login Error:", error);
+        alert("Error connecting to the server. Please check your network.");
       }
     } else if (mode === "register") {
       if (phone.length < 10) {
-        alert("Please enter a valid phone number");
+        alert("Please enter a valid phone number (at least 10 digits)");
         return;
       }
       if (password.length < 4) {
@@ -48,7 +68,6 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
         return;
       }
 
-      // ✅ FIXED REGISTER API
       try {
         const res = await fetch(`${API_URL}/api/auth/register`, {
           method: "POST",
@@ -57,12 +76,13 @@ function Login({ setShowLogin, setIsLoggedIn, setUserRole, setUserPhone }) {
         });
 
         const message = await res.text();
-
         alert(message);
 
-        setMode("login");
-        setIdentifier(phone);
-        setPassword("");
+        if (message.includes("successfully") || message.includes("✅")) {
+          setMode("login");
+          setIdentifier(phone);
+          setPassword("");
+        }
       } catch (error) {
         console.error("Registration Error:", error);
         alert("Error connecting to the database.");

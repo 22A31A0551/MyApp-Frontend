@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 const Transactions = ({ setPage }) => {
   const [transactions, setTransactions] = useState([]);
@@ -9,7 +10,7 @@ const Transactions = ({ setPage }) => {
   useEffect(() => {
     const fetchAndProcess = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/loans`);
+        const res = await authFetch(`${API_URL}/api/loans`);
         const loans = await res.json();
 
         if (Array.isArray(loans)) {

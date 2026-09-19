@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 import { calculateElapsedInterestMonths, calculateMonthlyInterestAmount } from "./interestUtils";
 
 function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
@@ -12,8 +13,8 @@ function UserDashboard({ userPhone, setSelectedLoan, setPage }) {
     const fetchUserData = async () => {
       try {
         const [loansRes, expiringRes] = await Promise.all([
-          fetch(`${API_URL}/api/loans`),
-          fetch(`${API_URL}/api/loans/expiring`)
+          authFetch(`${API_URL}/api/loans`),
+          authFetch(`${API_URL}/api/loans/expiring`)
         ]);
 
         const allLoans = await loansRes.json();

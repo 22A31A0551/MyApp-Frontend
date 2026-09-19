@@ -1,6 +1,7 @@
 import profileicon from "./assets/profileicon.webp";
 import { useState, useEffect, useRef } from "react";
 import { API_URL } from "./config";
+import { authFetch } from "./api";
 
 function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole, userPhone, setPage, setSelectedLoan }) {
   const [showMenu, setShowMenu] = useState(false);
@@ -33,7 +34,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
     }
 
     const fetchExpiringLoans = () => {
-      fetch(`${API_URL}/api/loans/expiring`)
+      authFetch(`${API_URL}/api/loans/expiring`)
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
@@ -63,7 +64,7 @@ function Navbar({ setShowLogin, isLoggedIn, setIsLoggedIn, setUserRole, userRole
       if (searchQuery.trim() !== "") {
         setIsSearching(true);
         try {
-          const res = await fetch(`${API_URL}/api/loans/search?name=${searchQuery}`);
+          const res = await authFetch(`${API_URL}/api/loans/search?name=${searchQuery}`);
           if (res.ok) {
             const result = await res.json();
             setSearchResults(Array.isArray(result) ? result : []);
