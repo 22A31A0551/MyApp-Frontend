@@ -285,7 +285,7 @@ function App() {
                       </div>
                     </div>
 
-                    {/* ðŸ“œ Recent Transactions Section (ADMIN ONLY) */}
+                    {/* 📜 Recent Transactions Section (ADMIN ONLY) */}
                     {userRole === "admin" && (
                       <div style={{ marginTop: "60px", padding: "0 20px" }}>
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
@@ -294,7 +294,7 @@ function App() {
                             onClick={() => setPage("transactions")}
                             style={{ background: "transparent", border: "none", color: "var(--primary)", fontWeight: "700", cursor: "pointer", fontSize: "16px" }}
                           >
-                            View All History â†’
+                            View All History →
                           </button>
                         </div>
                         <div className="glass-card" style={{ padding: "20px", borderRadius: "24px", border: "1.5px solid #000" }}>
@@ -313,7 +313,7 @@ function App() {
                                       display: "flex", justifyContent: "center", alignItems: "center",
                                       color: t.amount < 0 ? "#ef4444" : "#10b981", border: "1px solid currentColor"
                                     }}>
-                                      {t.amount < 0 ? "â†“" : "â†‘"}
+                                      {t.amount < 0 ? "↓" : "↑"}
                                     </div>
                                     <div>
                                       <div style={{ fontWeight: "800", color: "#000" }}>{t.name}</div>
@@ -321,7 +321,7 @@ function App() {
                                     </div>
                                   </div>
                                   <div style={{ fontWeight: "800", color: t.amount < 0 ? "#ef4444" : "#10b981", fontSize: "16px" }}>
-                                    {t.amount < 0 ? "-" : "+"} â‚¹{Math.abs(t.amount).toLocaleString()}
+                                    {t.amount < 0 ? "-" : "+"} ₹{Math.abs(t.amount).toLocaleString()}
                                   </div>
                                 </div>
                               ))}
@@ -494,7 +494,7 @@ function App() {
         )}
       </main>
 
-      {/* ðŸ” Login Popup */}
+      {/* 🔐 Login Popup */}
       {showLogin && (
         <Login
           setShowLogin={setShowLogin}
